@@ -1,0 +1,55 @@
+-- Create the database
+CREATE DATABASE IF NOT EXISTS ecommerce;
+USE ecommerce;
+
+-- Create the users table
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create the products table
+CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    price DECIMAL(10, 2) NOT NULL,
+    image VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create the cart table
+CREATE TABLE cart (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);
+
+-- Insert sample data into the products table
+INSERT INTO products (name, description, price, image) VALUES
+('Product 1', 'Description for product 1', 19.99, '/images/product1.jpg'),
+('Product 2', 'Description for product 2', 29.99, '/images/product2.jpg'),
+('Product 3', 'Description for product 3', 39.99, '/images/product3.jpg'),
+('Product 4', 'Description for product 4', 49.99, '/images/product4.jpg'),
+('Product 5', 'Description for product 5', 59.99, '/images/product5.jpg'),
+('Product 6', 'Description for product 6', 69.99, '/images/product6.jpg'),
+('Product 7', 'Description for product 7', 79.99, '/images/product7.jpg'),
+('Product 8', 'Description for product 8', 89.99, '/images/product8.jpg'),
+('Product 9', 'Description for product 9', 99.99, '/images/product9.jpg'),
+('Product 10', 'Description for product 10', 109.99, '/images/product10.jpg'),
+('Product 11', 'Description for product 11', 119.99, '/images/product11.jpg'),
+('Product 12', 'Description for product 12', 129.99, '/images/product12.jpg'),
+('Product 13', 'Description for product 13', 139.99, '/images/product13.jpg'),
+('Product 14', 'Description for product 14', 149.99, '/images/product14.jpg'),
+('Product 15', 'Description for product 15', 159.99, '/images/product15.jpg'),
+('Product 16', 'Description for product 16', 169.99, '/images/product16.jpg'),
+('Product 17', 'Description for product 17', 179.99, '/images/product17.jpg'),
+('Product 18', 'Description for product 18', 189.99, '/images/product18.jpg'),
+('Product 19', 'Description for product 19', 199.99, '/images/product19.jpg'),
+('Product 20', 'Description for product 20', 209.99, '/images/product20.jpg');
