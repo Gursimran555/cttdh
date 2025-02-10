@@ -21,25 +21,29 @@
 
 <body class="bg-gray-50">
   <!-- Navigation -->
-  <header class="bg-white shadow-lg fixed w-full z-10">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <a href="/">
-        <img src="./images/logo.png" alt="Autumn Logo" class="h-10">
+  <!-- Navigation -->
+<header class="bg-white shadow-lg fixed w-full z-10">
+  <div class="container mx-auto px-6 py-4 flex flex-wrap justify-between items-center">
+    <!-- Logo -->
+    <a href="/">
+      <img src="./images/logo.png" alt="Autumn Logo" class="h-10">
     </a>
-    
-      <div class="flex space-x-4">
-        <a id="loginButton" href="/auth.html" class="text-gray-700 hover:text-indigo-600 transition duration-300">
-          <i class="fas fa-user text-2xl"></i> <!-- Updated icon -->
-        </a>
-        <a id="logoutButton" href="#" class="text-gray-700 hover:text-red-600 transition duration-300 hidden">
-          <i class="fas fa-sign-out-alt text-2xl"></i>
-        </a>
-        <a href="/cart.html" class="text-gray-700 hover:text-green-600 transition duration-300">
-          <i class="fas fa-shopping-bag text-2xl"></i> <!-- Updated icon -->
-        </a>
-      </div>
+
+    <!-- Icons Section -->
+    <div class="flex items-center gap-4">
+      <a id="loginButton" href="/auth.html" class="text-gray-700 hover:text-indigo-600 transition duration-300">
+        <i class="fas fa-user text-2xl"></i>
+      </a>
+      <a id="logoutButton" href="#" class="text-gray-700 hover:text-red-600 transition duration-300 hidden">
+        <i class="fas fa-sign-out-alt text-2xl"></i>
+      </a>
+      <a href="/cart.html" class="text-gray-700 hover:text-green-600 transition duration-300">
+        <i class="fas fa-shopping-bag text-2xl"></i>
+      </a>
     </div>
-  </header>
+  </div>
+</header>
+
   <br><br>
   <!-- Main Content -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -161,16 +165,7 @@
             Embrace seasonal style with our curated collection of autumn-inspired apparel. 
             Where comfort meets trend in every stitch.
           </p>
-          <!-- Newsletter Form -->
-          <div class="mt-6">
-            <label class="block text-amber-800 text-sm font-medium mb-2">Join our newsletter</label>
-            <div class="flex gap-2">
-              <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 rounded-lg border border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500">
-              <button class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors">
-                Subscribe
-              </button>
-            </div>
-          </div>
+        
         </div>
   
         <!-- Quick Links -->
