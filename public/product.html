@@ -5,18 +5,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product Details</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <script defer src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;500;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
+    /* Add this to your existing CSS */
+    table {
+      width: 100% !important ;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f9fafb;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
+
+    tr:hover {
+      background-color: #f0f4f8;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
     }
 
     .add-to-cart-btn {
-      background-color: #FFA500; /* Autumn color */
+      background-color: #FFA500;
+      /* Autumn color */
       color: white;
-      padding: 8px 16px; /* Smaller button */
+      padding: 8px 16px;
+      /* Smaller button */
       border-radius: 8px;
       font-size: 14px;
       font-weight: bold;
@@ -24,11 +53,13 @@
       align-items: center;
       gap: 8px;
       transition: background-color 0.3s ease;
-      width: fit-content; /* Make button fit content */
+      width: fit-content;
+      /* Make button fit content */
     }
 
     .add-to-cart-btn:hover {
-      background-color: #FF8C00; /* Darker autumn color */
+      background-color: #FF8C00;
+      /* Darker autumn color */
     }
 
     .size-btn {
@@ -57,7 +88,7 @@
 
     .related-product-card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-    
+
     }
 
     .related-product-card:hover {
@@ -66,9 +97,11 @@
     }
 
     .related-product-card img {
-      height: 600px; /* Adjusted height for related product images */
+      height: 600px;
+      /* Adjusted height for related product images */
       object-fit: cover;
-      cursor: pointer; /* Make image clickable */
+      cursor: pointer;
+      /* Make image clickable */
     }
 
     .key-features {
@@ -120,6 +153,20 @@
       font-size: 12px;
       margin-left: 8px;
     }
+
+    #productImage {
+      max-width: 300px;
+      /* Adjust this value to your desired width */
+      height: 100%;
+      /* Maintain aspect ratio */
+      border-radius: 8px;
+      /* Optional: Adjust border radius */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      /* Optional: Adjust shadow */
+    }
+  </style>
+  <style>
+
   </style>
 </head>
 
@@ -130,8 +177,8 @@
     <div class="container mx-auto px-6 py-4 flex justify-between items-center">
       <a href="/">
         <img src="./images/logo.png" alt="Autumn Logo" class="h-10">
-    </a>
-    
+      </a>
+
       <div class="flex space-x-4">
         <a id="loginButton" href="/auth.html" class="text-gray-700 hover:text-indigo-600 transition duration-300">
           <i class="fas fa-user text-2xl"></i> <!-- Updated icon -->
@@ -140,8 +187,9 @@
           <i class="fas fa-sign-out-alt text-2xl"></i>
         </a>
         <a href="/cart.html" class="text-gray-700 hover:text-green-600 transition duration-300">
-          <i class="fas fa-shopping-bag text-2xl"></i> <!-- Updated icon -->
+          <i class="fas fa-shopping-cart text-2xl"></i> <!-- Updated icon -->
         </a>
+
       </div>
     </div>
   </header>
@@ -152,8 +200,11 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
       <!-- Product Image -->
       <div class="flex justify-center">
-        <img id="productImage" src="" alt="Product Image" class="w-full max-w-md h-auto rounded-lg shadow-lg cursor-pointer" onclick="window.location.href='/product.html?id=${productId}'" crossorigin="anonymous">
+        <img id="productImage" src="" alt="Product Image"
+          class="w-full max-w-md h-auto rounded-lg shadow-lg "
+         crossorigin="anonymous">
       </div>
+      
 
       <!-- Product Information -->
       <div>
@@ -175,6 +226,71 @@
             <button class="size-btn" data-size="XL">XL</button>
           </div>
         </div>
+        <!-- Size Guide Button and Chart -->
+        <div class="mb-6">
+
+          <!-- Size Guide Button -->
+          <button id="sizeGuideButton" class="mt-4 text-blue-600 hover:text-blue-800 underline focus:outline-none">
+            Size Guide
+          </button>
+
+          <!-- Size Chart Table (Hidden by Default) -->
+          <div id="sizeChartTable" class="mt-4 hidden">
+            <div class="overflow-x-auto">
+              <table class="min-w-full bg-white border border-gray-200">
+                <thead>
+                  <tr class="bg-gray-100">
+                    <th class="px-4 py-2 border border-gray-200">Size</th>
+                    <th class="px-4 py-2 border border-gray-200">Chest (in)</th>
+                    <th class="px-4 py-2 border border-gray-200">Shoulder (in)</th>
+                    <th class="px-4 py-2 border border-gray-200">Length (in)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="px-4 py-2 border border-gray-200 text-center">S</td>
+                    <td class="px-4 py-2 border border-gray-200 text-center">36</td>
+                    <td class="px-4 py-2 border border-gray-200 text-center">16</td>
+                    <td class="px-4 py-2 border border-gray-200 text-center">27</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2 border border-gray-200 text-center">M</td>
+                    <td class="px-4 py-2 border border-gray-200 text-center">38</td>
+                    <td class="px-4 py-2 border border-gray-200 text-center">17</td>
+                    <td class="px-4 py-2 border border-gray-200 text-center">28</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2 border border-gray-200 text-center">L</td>
+                    <td class="px-4 py-2 border border-gray-200 text-center">40</td>
+                    <td class="px-4 py-2 border border-gray-200 text-center">18</td>
+                    <td class="px-4 py-2 border border-gray-200 text-center">29</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2 border border-gray-200 text-center">XL</td>
+                    <td class="px-4 py-2 border border-gray-200 text-center">42</td>
+                    <td class="px-4 py-2 border border-gray-200 text-center">19</td>
+                    <td class="px-4 py-2 border border-gray-200 text-center">30</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+        <style>
+          #sizeGuideButton {
+            background-color: #f0f4f8;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+          }
+
+          #sizeGuideButton:hover {
+            background-color: #e2e8f0;
+          }
+        </style>
 
         <!-- Quantity Selector -->
         <div class="mb-6">
@@ -250,21 +366,12 @@
         <div class="md:col-span-2">
           <h3 class="text-2xl font-bold text-amber-900 mb-4">Autumn T-Shirts</h3>
           <p class="text-amber-700 text-sm leading-relaxed">
-            Embrace seasonal style with our curated collection of autumn-inspired apparel. 
+            Embrace seasonal style with our curated collection of autumn-inspired apparel.
             Where comfort meets trend in every stitch.
           </p>
-          <!-- Newsletter Form -->
-          <div class="mt-6">
-            <label class="block text-amber-800 text-sm font-medium mb-2">Join our newsletter</label>
-            <div class="flex gap-2">
-              <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 rounded-lg border border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500">
-              <button class="bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors">
-                Subscribe
-              </button>
-            </div>
-          </div>
+
         </div>
-  
+
         <!-- Quick Links -->
         <div>
           <h4 class="text-amber-900 font-semibold mb-4 text-lg">Explore</h4>
@@ -273,56 +380,61 @@
             <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Women's Styles</a></li>
           </ul>
         </div>
-  
+
         <!-- Support -->
         <div>
           <h4 class="text-amber-900 font-semibold mb-4 text-lg">Support</h4>
           <ul class="space-y-2">
-            
+
             <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Terms and conditions</a></li>
             <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Contact Support</a></li>
           </ul>
         </div>
-  
+
         <!-- Contact -->
         <div>
           <h4 class="text-amber-900 font-semibold mb-4 text-lg">Connect</h4>
           <div class="space-y-2">
             <div class="flex items-center gap-2">
               <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
               <span class="text-amber-700">hello@autumn.com</span>
             </div>
             <div class="flex items-center gap-2">
               <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
               <span class="text-amber-700">+91 456 7890</span>
             </div>
           </div>
-          
+
           <!-- Social Icons -->
           <div class="mt-4 flex gap-3">
             <a href="#" class="p-2 bg-amber-100 rounded-full hover:bg-amber-200 transition-colors">
               <svg class="w-5 h-5 text-amber-700" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                <path
+                  d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
               </svg>
             </a>
             <a href="#" class="p-2 bg-amber-100 rounded-full hover:bg-amber-200 transition-colors">
               <svg class="w-5 h-5 text-amber-700" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z"/>
+                <path
+                  d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z" />
               </svg>
             </a>
             <a href="#" class="p-2 bg-amber-100 rounded-full hover:bg-amber-200 transition-colors">
               <svg class="w-5 h-5 text-amber-700" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
               </svg>
             </a>
           </div>
         </div>
       </div>
-  
+
       <!-- Copyright -->
       <div class="mt-12 pt-8 border-t border-amber-200 text-center">
         <p class="text-sm text-amber-600">
@@ -332,7 +444,7 @@
     </div>
   </footer>
 
-  <script>
+  <script defer>
     const productImage = document.getElementById('productImage');
     const productName = document.getElementById('productName');
     const productDescription = document.getElementById('productDescription');
@@ -492,6 +604,15 @@
         })
         .catch(err => console.error('Error adding item to cart:', err));
     }
+  </script>
+  <script>
+    // Toggle Size Chart Visibility
+    const sizeGuideButton = document.getElementById('sizeGuideButton');
+    const sizeChartTable = document.getElementById('sizeChartTable');
+
+    sizeGuideButton.addEventListener('click', () => {
+      sizeChartTable.classList.toggle('hidden');
+    });
   </script>
 </body>
 

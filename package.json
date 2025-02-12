@@ -1,25 +1,31 @@
 {
   "name": "8p-v2",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@getbrevo/brevo": "^2.2.0",
     "@paypal/checkout-server-sdk": "^1.0.3",
     "@supabase/supabase-js": "^2.48.1",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
+    "brevo": "^1.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mysql": "^2.18.1",
-    "razorpay": "^2.9.5"
+    "nodemailer": "^6.10.0",
+    "postmark": "^4.0.5",
+    "razorpay": "^2.9.5",
+    "resend": "^4.1.2",
+    "sib-api-v3-sdk": "^8.5.0"
   }
 }
