@@ -3,9 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Order Confirmation</title>
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts for modern typography -->
+
+
+  <style>
+    /* cormorant-garamond-latin-400-normal */
+  @font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff) format('woff');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+  }
+  </style>
+
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .confirmation-container {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .confirmation-container h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    .confirmation-icon {
+      font-size: 64px;
+      color: #28a745;
+      margin-bottom: 20px;
+    }
+
+    .confirmation-message {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      background-color: #28a745;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #218838;
+    }
+
+    .btn i {
+      margin-right: 8px;
+    }
+  </style>
 </head>
 <body>
-  <h1>order confirm </h1>
+  <div class="confirmation-container">
+    <div class="confirmation-icon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <h1>Order Confirmed!</h1>
+    <p class="confirmation-message">
+      Thank you for your purchase! Your order has been successfully placed.
+    </p>
+    <button class="btn" onclick="window.location.href='/'">
+      <i class="fas fa-home"></i> Continue Shopping
+    </button>
+  </div>
 </body>
 </html>

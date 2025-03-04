@@ -7,26 +7,170 @@
   <title>Autumn</title>
 
   <!-- Defer JavaScript -->
-  <script defer src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Preconnect to Google Fonts for faster loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Load Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;500;700&display=swap"
-    rel="stylesheet">
+  
 
   <!-- Load Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
+<style>
+  /* cormorant-garamond-latin-400-normal */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+</style>
+<style>
+  /* Minified CSS */
+  .heart-button {
+    transition: color .3s ease, transform .3s ease
+  }
 
-  <style>
-    /* Minified CSS */
-    .heart-button{transition:color .3s ease,transform .3s ease}.heart-button:hover{transform:scale(1.1)}.heart-button .fa-heart{transition:color .3s ease}.heart-button .fa-heart.text-red-500{color:#ef4444}body{font-family:'Poppins',sans-serif}.product-card{transition:transform .3s ease,box-shadow .3s ease}.product-card:hover{transform:translateY(-5px);box-shadow:0 10px 20px rgba(0,0,0,.15)}.hero-section{background-image:url('./wave-gradient-background-luxury-dark-modern-design/11_aswasdas1.jpg');background-size:cover;background-position:center;height:100vh;display:flex;align-items:flex-end;justify-content:center;text-align:center;color:white;padding-bottom:100px}.view-details-btn{background-color:#FFA500;color:white;width:100%;padding:12px 24px;border-radius:8px;font-size:16px;font-weight:bold;display:flex;align-items:center;gap:8px;transition:background-color .3s ease}.view-details-btn:hover{background-color:#FF8C00}.filter-section{background-color:#f9fafb;padding:20px;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,.1);display:flex;flex-direction:column;gap:16px}.filter-section select{padding:10px;border:1px solid #ddd;border-radius:8px;width:100%;max-width:200px}.footer{background-color:#2d3748;color:white;padding:40px 0}.footer a{color:#a0aec0;transition:color .3s ease}.footer a:hover{color:#fff}.price-cut{text-decoration:line-through;color:#999;font-size:20px}.discount-badge{background-color:#FF4757;color:white;padding:4px 8px;border-radius:4px;font-size:12px;margin-left:8px}
-  </style>
+  .heart-button:hover {
+    transform: scale(1.1)
+  }
+
+  .heart-button .fa-heart {
+    transition: color .3s ease
+  }
+
+  .heart-button .fa-heart.text-red-500 {
+    color: #ef4444
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif
+  }
+
+  .product-card {
+    transition: transform .3s ease, box-shadow .3s ease
+  }
+
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .15)
+  }
+
+  
+
+  .view-details-btn {
+    background-color: #FFA500;
+    color: white;
+    width: 100%;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color .3s ease
+  }
+
+  .view-details-btn:hover {
+    background-color: #FF8C00
+  }
+
+  .filter-section {
+    background-color: #f9fafb;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, .1);
+    display: flex;
+    flex-direction: column;
+    gap: 16px
+  }
+
+  .filter-section select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 200px
+  }
+
+  .footer {
+    background-color: #2d3748;
+    color: white;
+    padding: 40px 0
+  }
+
+  .footer a {
+    color: #a0aec0;
+    transition: color .3s ease
+  }
+
+  .footer a:hover {
+    color: #fff
+  }
+
+  .price-cut {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 20px
+  }
+
+  .discount-badge {
+    background-color: #FF4757;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-left: 8px
+  }
+</style>
+
+
+<style>
+  /* Hero Section */
+  .hero-section {
+    background-image: url('./images/blue-wavy-background.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Overlay for better text readability */
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+    z-index: 1;
+  }
+
+  /* Text and Image Grid */
+  .hero-section .container {
+    z-index: 2;
+  }
+
+  /* Image Hover Effect */
+  .hero-section img {
+    transition: transform 0.3s ease;
+  }
+
+  .hero-section img:hover {
+    transform: scale(1.05);
+  }
+</style>
+
+
 </head>
 
 <body class="bg-gray-50 text-gray-900">
@@ -58,16 +202,30 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="hero-section">
-    <div class="container mx-auto px-6 text-center">
-      <h2 class="text-5xl font-bold mb-4">Welcome to Autumn</h2>
-      <p class="text-xl mb-8">Discover the best t-shirts for men and women at unbeatable prices.</p>
-      <a href="#products"
-        class="bg-white text-stone-950 px-12 py-6 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 text-lg">Shop
-        Now</a>
+    <!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-overlay">
+  <div class="container mx-auto px-6 flex flex-col lg:flex-row items-center justify-between h-full">
+    <!-- Text Content -->
+    <div class="text-center lg:text-left lg:w-1/2 z-10">
+      <h1 class="text-5xl lg:text-6xl font-bold text-white mb-6">Autumn Collection 2025</h1>
+      <p class="text-xl text-gray-200 mb-8">Discover the latest trends in men's and women's fashion. Shop now</p>
+      <a href="#products" class="bg-white text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 text-lg">
+        Shop Now
+      </a>
     </div>
-  </section>
 
+    <!-- Image Grid -->
+    <div class="grid grid-cols-2 gap-6 lg:w-1/2 z-10 mt-8 lg:mt-0">
+      <div class="relative overflow-hidden rounded-lg shadow-lg">
+        <img src="./images/4.jpg" alt="Local Image 1" class="w-full h-full object-cover transform hover:scale-105 transition duration-300">
+      </div>
+      <div class="relative overflow-hidden rounded-lg shadow-lg">
+        <img src="./images/3.jpg" alt="Local Image 2" class="w-full h-full object-cover transform hover:scale-105 transition duration-300">
+      </div>
+    </div>
+  </div>
+</section>
   <!-- Sorting Options -->
   <div class="container mx-auto px-6 py-12">
     <div class="filter-section">
@@ -137,7 +295,7 @@
           <h4 class="text-amber-900 font-semibold mb-4 text-lg">Support</h4>
           <ul class="space-y-2">
 
-            <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Terms and conditions</a></li>
+            <li><a href="./policies.html" class="text-amber-700 hover:text-amber-900 transition-colors">Terms and conditions</a></li>
             <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Contact Support</a></li>
           </ul>
         </div>

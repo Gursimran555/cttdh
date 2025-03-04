@@ -5,15 +5,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product Details</title>
-  <script defer src="https://cdn.tailwindcss.com"></script>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;500;700&display=swap"
-    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+  <style>
+    /* cormorant-garamond-latin-400-normal */
+    @font-face {
+      font-family: 'Cormorant Garamond';
+      font-style: normal;
+      font-display: swap;
+      font-weight: 400;
+      src: url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff) format('woff');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+  </style>
+
   <style>
     /* Add this to your existing CSS */
     table {
-      width: 100% !important ;
+      width: 100% !important;
       border-collapse: collapse;
     }
 
@@ -46,7 +58,7 @@
       color: white;
       padding: 8px 16px;
       /* Smaller button */
-      border-radius: 8px;
+      border-radius: 0px;
       font-size: 14px;
       font-weight: bold;
       display: flex;
@@ -54,6 +66,8 @@
       gap: 8px;
       transition: background-color 0.3s ease;
       width: fit-content;
+      width: 500px;
+      height: 60px;
       /* Make button fit content */
     }
 
@@ -75,16 +89,7 @@
       background-color: #f0fff4;
     }
 
-    .review-card {
-      background-color: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .star-rating {
-      color: #fbbf24;
-    }
+    
 
     .related-product-card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -104,40 +109,7 @@
       /* Make image clickable */
     }
 
-    .key-features {
-      margin-top: 20px;
-      padding: 20px;
-      background-color: #f9fafb;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
 
-    .key-features h3 {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 16px;
-      color: #2d3748;
-    }
-
-    .key-features ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-
-    .key-features li {
-      margin-bottom: 12px;
-      padding: 10px;
-      background-color: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .key-features li i {
-      color: #4CAF50;
-    }
 
     .price-cut {
       text-decoration: line-through;
@@ -168,6 +140,24 @@
   <style>
 
   </style>
+
+
+  <style>
+    #prevImageButton,
+    #nextImageButton {
+      background-color: rgba(216, 208, 208, 0.8);
+      padding: 20px;
+      border-radius: 500px;
+      box-shadow: 0 0px 0px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+    }
+
+    #prevImageButton:hover,
+    #nextImageButton:hover {
+      background-color: rgb(155, 154, 154);
+    }
+  </style>
+
 </head>
 
 <body class="bg-gray-50 text-gray-900">
@@ -189,6 +179,9 @@
         <a href="/cart.html" class="text-gray-700 hover:text-green-600 transition duration-300">
           <i class="fas fa-shopping-cart text-2xl"></i> <!-- Updated icon -->
         </a>
+        <a href="/wishlist.html" class="text-gray-700 hover:text-green-600 transition duration-300">
+          <i class="fas fa-heart text-2xl"></i>
+        </a>
 
       </div>
     </div>
@@ -199,165 +192,356 @@
   <div class="container mx-auto px-6 py-12">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
       <!-- Product Image -->
-      <div class="flex justify-center">
-        <img id="productImage" src="" alt="Product Image"
-          class="w-full max-w-md h-auto rounded-lg shadow-lg "
-         crossorigin="anonymous">
+      <div class="flex justify-center relative">
+        <img id="productImage" src="" alt="Product Image" class="w-full max-w-md h-auto rounded-lg shadow-lg"
+          crossorigin="anonymous">
+
+        <!-- Previous Image Button -->
+        <button id="prevImageButton"
+          class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors">
+          <i class="fas fa-chevron-left text-gray-700"></i>
+        </button>
+
+        <!-- Next Image Button -->
+        <button id="nextImageButton"
+          class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors">
+          <i class="fas fa-chevron-right text-gray-700"></i>
+        </button>
       </div>
-      
 
       <!-- Product Information -->
-      <div>
-        <h1 id="productName" class="text-4xl font-bold text-gray-800 mb-4"></h1>
-        <p id="productDescription" class="text-gray-600 mb-6"></p>
-        <div class="flex items-center gap-4 mb-6">
-          <span id="originalPrice" class="price-cut"></span>
-          <span id="productPrice" class="text-3xl font-bold text-green-500"></span>
-          <span class="discount-badge">20% off</span>
-        </div>
-
-        <!-- Size Selection -->
-        <div class="mb-6">
-          <label class="block text-gray-700 font-medium mb-2">Size:</label>
-          <div class="flex gap-2">
-            <button class="size-btn" data-size="S">S</button>
-            <button class="size-btn" data-size="M">M</button>
-            <button class="size-btn" data-size="L">L</button>
-            <button class="size-btn" data-size="XL">XL</button>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div>
+          <h1 id="productName" class="text-4xl font-bold text-gray-800 mb-4"></h1>
+          <p id="productDescription" class="text-gray-600 mb-6"></p>
+          <div class="flex items-center gap-4 mb-6">
+            <span id="originalPrice" class="price-cut"></span>
+            <span id="productPrice" class="text-3xl font-bold text-green-500"></span>
+            <span class="discount-badge">20% off</span>
           </div>
-        </div>
-        <!-- Size Guide Button and Chart -->
-        <div class="mb-6">
 
-          <!-- Size Guide Button -->
-          <button id="sizeGuideButton" class="mt-4 text-blue-600 hover:text-blue-800 underline focus:outline-none">
-            Size Guide
-          </button>
-
-          <!-- Size Chart Table (Hidden by Default) -->
-          <div id="sizeChartTable" class="mt-4 hidden">
-            <div class="overflow-x-auto">
-              <table class="min-w-full bg-white border border-gray-200">
-                <thead>
-                  <tr class="bg-gray-100">
-                    <th class="px-4 py-2 border border-gray-200">Size</th>
-                    <th class="px-4 py-2 border border-gray-200">Chest (in)</th>
-                    <th class="px-4 py-2 border border-gray-200">Shoulder (in)</th>
-                    <th class="px-4 py-2 border border-gray-200">Length (in)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="px-4 py-2 border border-gray-200 text-center">S</td>
-                    <td class="px-4 py-2 border border-gray-200 text-center">36</td>
-                    <td class="px-4 py-2 border border-gray-200 text-center">16</td>
-                    <td class="px-4 py-2 border border-gray-200 text-center">27</td>
-                  </tr>
-                  <tr>
-                    <td class="px-4 py-2 border border-gray-200 text-center">M</td>
-                    <td class="px-4 py-2 border border-gray-200 text-center">38</td>
-                    <td class="px-4 py-2 border border-gray-200 text-center">17</td>
-                    <td class="px-4 py-2 border border-gray-200 text-center">28</td>
-                  </tr>
-                  <tr>
-                    <td class="px-4 py-2 border border-gray-200 text-center">L</td>
-                    <td class="px-4 py-2 border border-gray-200 text-center">40</td>
-                    <td class="px-4 py-2 border border-gray-200 text-center">18</td>
-                    <td class="px-4 py-2 border border-gray-200 text-center">29</td>
-                  </tr>
-                  <tr>
-                    <td class="px-4 py-2 border border-gray-200 text-center">XL</td>
-                    <td class="px-4 py-2 border border-gray-200 text-center">42</td>
-                    <td class="px-4 py-2 border border-gray-200 text-center">19</td>
-                    <td class="px-4 py-2 border border-gray-200 text-center">30</td>
-                  </tr>
-                </tbody>
-              </table>
+          <!-- Size Selection -->
+          <div class="mb-6">
+            <label class="block text-gray-700 font-medium mb-2">Size:</label>
+            <div class="flex gap-2">
+              <button class="size-btn" data-size="S">S</button>
+              <button class="size-btn" data-size="M">M</button>
+              <button class="size-btn" data-size="L">L</button>
+              <button class="size-btn" data-size="XL">XL</button>
             </div>
           </div>
+
+          <!-- Size Guide Button and Chart -->
+          <div class="mb-6">
+            <button id="sizeGuideButton" class="mt-4 text-blue-600 hover:text-blue-800 underline focus:outline-none">
+              Size Guide
+            </button>
+            <div id="sizeChartTable" class="mt-4 hidden">
+              <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200">
+                  <thead>
+                    <tr class="bg-gray-100">
+                      <th class="px-4 py-2 border border-gray-200">Size</th>
+                      <th class="px-4 py-2 border border-gray-200">Chest (in)</th>
+                      <th class="px-4 py-2 border border-gray-200">Shoulder (in)</th>
+                      <th class="px-4 py-2 border border-gray-200">Length (in)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="px-4 py-2 border border-gray-200 text-center">S</td>
+                      <td class="px-4 py-2 border border-gray-200 text-center">36</td>
+                      <td class="px-4 py-2 border border-gray-200 text-center">16</td>
+                      <td class="px-4 py-2 border border-gray-200 text-center">27</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-2 border border-gray-200 text-center">M</td>
+                      <td class="px-4 py-2 border border-gray-200 text-center">38</td>
+                      <td class="px-4 py-2 border border-gray-200 text-center">17</td>
+                      <td class="px-4 py-2 border border-gray-200 text-center">28</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-2 border border-gray-200 text-center">L</td>
+                      <td class="px-4 py-2 border border-gray-200 text-center">40</td>
+                      <td class="px-4 py-2 border border-gray-200 text-center">18</td>
+                      <td class="px-4 py-2 border border-gray-200 text-center">29</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-2 border border-gray-200 text-center">XL</td>
+                      <td class="px-4 py-2 border border-gray-200 text-center">42</td>
+                      <td class="px-4 py-2 border border-gray-200 text-center">19</td>
+                      <td class="px-4 py-2 border border-gray-200 text-center">30</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quantity Selector -->
+          <div class="mb-6">
+            <label for="quantity" class="block text-gray-700 font-medium mb-2">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="1" value="1"
+              class="w-24 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+
+          <div class="flex items-center space-x-2">
+            <!-- Add to Cart Button -->
+            <button id="addToCartButton" class="add-to-cart-btn">
+              <i class="fas fa-shopping-cart"></i> Add to Cart
+            </button>
+
+            <!-- Add to Wishlist Button -->
+            <button id="addToWishlistButton"
+              class="add-to-cart-btn bg-yellow-100 text-yellow-800 border border-yellow-600 hover:bg-yellow-200">
+              <i class="fas fa-heart"></i> Add to Wishlist
+            </button>
+          </div>
+
+
+
+          <!-- Add the event listener for the wishlist button -->
+          <script>
+            const addToWishlistButton = document.getElementById('addToWishlistButton');
+
+            addToWishlistButton.onclick = () => {
+              const token = localStorage.getItem('token');
+              if (!token) {
+                alert('Please login to add items to your wishlist.');
+                window.location.href = '/auth.html';
+                return;
+              }
+
+              fetch('/wishlist', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ productId }),
+              })
+                .then(res => res.json())
+                .then(data => {
+                  if (data.success) {
+                    alert('Item added to wishlist!');
+                  } else {
+                    alert('Failed to add item to wishlist.');
+                  }
+                })
+                .catch(err => console.error('Error adding item to wishlist:', err));
+            };
+          </script>
         </div>
-        
-        <style>
-          #sizeGuideButton {
-            background-color: #f0f4f8;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-          }
-
-          #sizeGuideButton:hover {
-            background-color: #e2e8f0;
-          }
-        </style>
-
-        <!-- Quantity Selector -->
-        <div class="mb-6">
-          <label for="quantity" class="block text-gray-700 font-medium mb-2">Quantity:</label>
-          <input type="number" id="quantity" name="quantity" min="1" value="1"
-            class="w-24 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
-        </div>
-
-        <!-- Add to Cart Button -->
-        <button id="addToCartButton" class="add-to-cart-btn">
-          <i class="fas fa-shopping-cart"></i> Add to Cart
-        </button>
 
         <!-- Key Features Section -->
         <div id="keyFeatures" class="key-features">
           <h3>Key Features</h3>
           <ul id="keyFeaturesList"></ul>
         </div>
+
+        <!-- FontAwesome for Icons -->
+        <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+
+        <style>
+          /* Key Features Section */
+          .key-features {
+            margin-top: 20px;
+            padding: 32px;
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #d97706;
+            /* Dark Yellow Border */
+            transition: all 0.3s ease-in-out;
+            text-align: center;
+          }
+
+          .key-features:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+          }
+
+          .key-features h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            position: relative;
+            display: inline-block;
+          }
+
+          .key-features h3::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #4CAF50;
+            margin: 8px auto 0;
+            border-radius: 2px;
+          }
+
+          .key-features ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+          }
+
+          .key-features li {
+            background: #f9fafb;
+            padding: 8px 10px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #374151;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+          }
+
+          .key-features li:hover {
+            background: #f3f4f6;
+            transform: translateX(8px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+          }
+
+          .key-features li i {
+            font-size: 12px;
+            color: #4CAF50;
+            min-width: 30px;
+            text-align: center;
+          }
+
+          /* Responsive Design */
+          @media (max-width: 768px) {
+            .key-features {
+              padding: 24px;
+            }
+
+            .key-features h3 {
+              font-size: 22px;
+            }
+
+            .key-features li {
+              padding: 14px 16px;
+              font-size: 15px;
+            }
+
+            .key-features li i {
+              font-size: 22px;
+            }
+          }
+        </style>
+
+
+
       </div>
     </div>
+  </div>
 
-    <!-- Customer Reviews Section -->
-    <div class="mt-16">
-      <h2 class="text-3xl font-bold text-gray-800 mb-8">Customer Reviews</h2>
-      <div id="reviews" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Reviews will be dynamically loaded here -->
-      </div>
-
-      <!-- Review Form -->
-      <form id="reviewForm" class="mt-8 bg-white p-8 rounded-2xl shadow-xl max-w-lg mx-auto">
-        <h3 class="text-2xl font-bold text-gray-900 mb-5 text-center">Write a Review</h3>
-
-        <textarea id="reviewText"
-          class="w-full px-5 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-400 transition-shadow"
-          placeholder="Share your thoughts..." required></textarea>
-
-        <div class="mt-5 text-center">
-          <label for="rating" class="block text-gray-800 font-medium mb-3">Rating:</label>
-          <div class="flex justify-center gap-3">
-            <button type="button" class="rating-btn text-gray-400 text-2xl hover:text-yellow-500 transition"
-              data-rating="1"><i class="fas fa-star"></i></button>
-            <button type="button" class="rating-btn text-gray-400 text-2xl hover:text-yellow-500 transition"
-              data-rating="2"><i class="fas fa-star"></i></button>
-            <button type="button" class="rating-btn text-gray-400 text-2xl hover:text-yellow-500 transition"
-              data-rating="3"><i class="fas fa-star"></i></button>
-            <button type="button" class="rating-btn text-gray-400 text-2xl hover:text-yellow-500 transition"
-              data-rating="4"><i class="fas fa-star"></i></button>
-            <button type="button" class="rating-btn text-gray-400 text-2xl hover:text-yellow-500 transition"
-              data-rating="5"><i class="fas fa-star"></i></button>
-          </div>
-          <input type="hidden" id="rating" name="rating" required>
+  <!-- Compact and Modern Services Section -->
+  <div class="bg-white p-6 rounded-xl shadow-lg mb-8 max-w-4xl mx-auto">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <!-- Free Delivery -->
+      <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:shadow-md transition-all duration-300">
+        <div class="p-2 bg-green-100 rounded-lg">
+          <i class="fas fa-truck text-xl text-green-600"></i>
         </div>
+        <div>
+          <h3 class="text-sm font-semibold text-gray-800">Free Delivery</h3>
+          <p class="text-xs text-gray-500">Above ₹499</p>
+        </div>
+      </div>
 
-        <button type="submit"
-          class="mt-6 w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition duration-300 shadow-md">
-          Submit Review
-        </button>
-      </form>
-    </div>
+      <!-- Exchange Offer -->
+      <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:shadow-md transition-all duration-300">
+        <div class="p-2 bg-blue-100 rounded-lg">
+          <i class="fas fa-exchange-alt text-xl text-blue-600"></i>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-gray-800">Easy Exchange</h3>
+          <p class="text-xs text-gray-500">Hassle-free</p>
+        </div>
+      </div>
 
-    <!-- Related Products Section -->
-    <div class="mt-16">
-      <h2 class="text-3xl font-bold text-gray-800 mb-8">Related Products</h2>
-      <div id="relatedProducts" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        <!-- Related products will be dynamically loaded here -->
+      <!-- Replacement Offer -->
+      <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:shadow-md transition-all duration-300">
+        <div class="p-2 bg-purple-100 rounded-lg">
+          <i class="fas fa-sync-alt text-xl text-purple-600"></i>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-gray-800">Quick Replacement</h3>
+          <p class="text-xs text-gray-500">No delays</p>
+        </div>
+      </div>
+
+      <!-- Cash on Delivery -->
+      <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-lg hover:shadow-md transition-all duration-300">
+        <div class="p-2 bg-orange-100 rounded-lg">
+          <i class="fas fa-money-bill-wave text-xl text-orange-600"></i>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-gray-800">Cash on Delivery</h3>
+          <p class="text-xs text-gray-500">Pay on delivery</p>
+        </div>
       </div>
     </div>
+  </div>
+
+
+
+  <!-- Related Products Section -->
+  <div class="mt-16">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8">Related Products</h2>
+    <div id="relatedProducts" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <!-- Related products will be dynamically loaded here -->
+    </div>
+  </div>
+  </div>
+
+  <!-- Customer Reviews Section -->
+  <!-- Customer Reviews Section -->
+  <div class="mt-16">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8">Customer Reviews</h2>
+    <div id="reviews" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Reviews will be dynamically loaded here -->
+    </div>
+
+    <!-- Review Form -->
+    <form id="reviewForm" class="mt-8 bg-white p-8 rounded-2xl shadow-xl max-w-lg mx-auto">
+      <h3 class="text-2xl font-bold text-gray-900 mb-5 text-center">Write a Review</h3>
+
+      <textarea id="reviewText"
+        class="w-full px-5 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-400 transition-shadow"
+        placeholder="Share your thoughts..." required></textarea>
+
+      <div class="mt-5 text-center">
+        <label for="rating" class="block text-gray-800 font-medium mb-3">Rating:</label>
+        <div class="flex justify-center gap-3">
+          <button type="button" class="rating-btn text-gray-400 text-2xl hover:text-yellow-500 transition"
+            data-rating="1"><i class="fas fa-star"></i></button>
+          <button type="button" class="rating-btn text-gray-400 text-2xl hover:text-yellow-500 transition"
+            data-rating="2"><i class="fas fa-star"></i></button>
+          <button type="button" class="rating-btn text-gray-400 text-2xl hover:text-yellow-500 transition"
+            data-rating="3"><i class="fas fa-star"></i></button>
+          <button type="button" class="rating-btn text-gray-400 text-2xl hover:text-yellow-500 transition"
+            data-rating="4"><i class="fas fa-star"></i></button>
+          <button type="button" class="rating-btn text-gray-400 text-2xl hover:text-yellow-500 transition"
+            data-rating="5"><i class="fas fa-star"></i></button>
+        </div>
+        <input type="hidden" id="rating" name="rating" required>
+      </div>
+      <br>
+
+      <button type="submit"
+        class="mt-6 w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition duration-300 shadow-md">
+        Submit Review
+      </button>
+    </form>
   </div>
   <footer class="bg-amber-50 border-t-4 border-amber-200 shadow-lg">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -386,7 +570,7 @@
           <h4 class="text-amber-900 font-semibold mb-4 text-lg">Support</h4>
           <ul class="space-y-2">
 
-            <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Terms and conditions</a></li>
+            <li><a href="./policies.html" class="text-amber-700 hover:text-amber-900 transition-colors">Terms and conditions</a></li>
             <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Contact Support</a></li>
           </ul>
         </div>
@@ -446,6 +630,8 @@
 
   <script defer>
     const productImage = document.getElementById('productImage');
+    const prevImageButton = document.getElementById('prevImageButton');
+    const nextImageButton = document.getElementById('nextImageButton');
     const productName = document.getElementById('productName');
     const productDescription = document.getElementById('productDescription');
     const productPrice = document.getElementById('productPrice');
@@ -460,6 +646,8 @@
 
     let selectedSize = null;
     let selectedRating = 0;
+    let productImages = []; // Array to store multiple images
+    let currentImageIndex = 0; // Index of the currently displayed image
 
     // Get the product ID from the query string
     const params = new URLSearchParams(window.location.search);
@@ -469,7 +657,13 @@
     fetch(`/product/${productId}`)
       .then(res => res.json())
       .then(product => {
-        productImage.src = product.image_url;
+        // Combine image URLs into an array, filtering out null values
+        productImages = [product.image_url, product.image_url2, product.image_url3].filter(url => url);
+
+        // Display the first image
+        productImage.src = productImages[currentImageIndex];
+
+        // Update product details
         productName.textContent = product.name;
         productDescription.textContent = product.description;
         const discountedPrice = product.price;
@@ -487,6 +681,7 @@
           `).join('');
         }
 
+        // Handle add to cart button click
         addToCartButton.onclick = () => {
           if (!selectedSize) {
             alert('Please select a size before adding to cart.');
@@ -496,18 +691,38 @@
         };
       });
 
+    // Handle next image button click
+    nextImageButton.addEventListener('click', () => {
+      currentImageIndex = (currentImageIndex + 1) % productImages.length; // Cycle to next image
+      productImage.src = productImages[currentImageIndex];
+    });
+
+    // Handle previous image button click
+    prevImageButton.addEventListener('click', () => {
+      currentImageIndex = (currentImageIndex - 1 + productImages.length) % productImages.length; // Cycle to previous image
+      productImage.src = productImages[currentImageIndex];
+    });
+
     // Fetch and display reviews
     fetch(`/product/${productId}/reviews`)
       .then(res => res.json())
       .then(reviews => {
         reviewsContainer.innerHTML = reviews.map(review => `
-          <div class="review-card">
-            <div class="star-rating">
+      <div class="review-card bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center">
+            <i class="fas fa-user text-2xl text-gray-500"></i> <!-- User icon -->
+          </div>
+          <div>
+            <p class="text-gray-700 font-semibold">${review.users.full_name}</p> 
+            <div class="star-rating text-yellow-400">
               ${Array.from({ length: review.rating }, (_, i) => `<i class="fas fa-star"></i>`).join('')}
             </div>
-            <p class="text-gray-700 mt-2">${review.text}</p>
           </div>
-        `).join('');
+        </div>
+        <p class="text-gray-600">${review.text}</p>
+      </div>
+    `).join('');
       });
 
     // Fetch and display related products
@@ -605,6 +820,7 @@
         .catch(err => console.error('Error adding item to cart:', err));
     }
   </script>
+
   <script>
     // Toggle Size Chart Visibility
     const sizeGuideButton = document.getElementById('sizeGuideButton');
@@ -614,6 +830,32 @@
       sizeChartTable.classList.toggle('hidden');
     });
   </script>
+
+  <style>
+    /* Review Card Styling */
+    .review-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .review-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .star-rating {
+      color: #fbbf24;
+    }
+
+    /* User Icon Styling */
+    .fa-user {
+      font-size: 24px;
+      color: #6b7280;
+    }
+  </style>
 </body>
 
 </html>

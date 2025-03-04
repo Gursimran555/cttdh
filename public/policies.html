@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autumn</title>
+
+  <!-- Defer JavaScript -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Preconnect to Google Fonts for faster loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+
+  <!-- Load Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <style>
+    /* cormorant-garamond-latin-400-normal */
+  @font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff) format('woff');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+  }
+  </style>
+
+
+
+</head>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <!-- Navigation -->
+  <header class="bg-white shadow-lg fixed w-full z-10">
+    <div class="container mx-auto px-6 py-4 flex flex-wrap justify-between items-center">
+      <!-- Logo -->
+      <a href="/">
+        <img src="./images/logo.png" alt="Autumn Logo" class="h-10">
+      </a>
+
+      <!-- Icons Section -->
+      <div class="flex items-center gap-4">
+        <a id="loginButton" href="/auth.html" class="text-gray-700 hover:text-indigo-600 transition duration-300">
+          <i class="fas fa-user text-2xl"></i>
+        </a>
+        <a id="logoutButton" href="#" class="text-gray-700 hover:text-red-600 transition duration-300 hidden">
+          <i class="fas fa-sign-out-alt text-2xl"></i>
+        </a>
+        <a href="/cart.html" class="text-gray-700 hover:text-green-600 transition duration-300">
+          <i class="fas fa-shopping-cart text-2xl"></i>
+        </a>
+
+        <a href="/wishlist.html" class="text-gray-700 hover:text-green-600 transition duration-300">
+          <i class="fas fa-heart text-2xl"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+  <style>
+    /* Minified CSS */
+    .heart-button{transition:color .3s ease,transform .3s ease}.heart-button:hover{transform:scale(1.1)}.heart-button .fa-heart{transition:color .3s ease}.heart-button .fa-heart.text-red-500{color:#ef4444}body{font-family:'Poppins',sans-serif}.product-card{transition:transform .3s ease,box-shadow .3s ease}.product-card:hover{transform:translateY(-5px);box-shadow:0 10px 20px rgba(0,0,0,.15)}.hero-section{background-image:url('./wave-gradient-background-luxury-dark-modern-design/11_aswasdas1.jpg');background-size:cover;background-position:center;height:100vh;display:flex;align-items:flex-end;justify-content:center;text-align:center;color:white;padding-bottom:100px}.view-details-btn{background-color:#FFA500;color:white;width:100%;padding:12px 24px;border-radius:8px;font-size:16px;font-weight:bold;display:flex;align-items:center;gap:8px;transition:background-color .3s ease}.view-details-btn:hover{background-color:#FF8C00}.filter-section{background-color:#f9fafb;padding:20px;border-radius:12px;box-shadow:0 4px 6px rgba(0,0,0,.1);display:flex;flex-direction:column;gap:16px}.filter-section select{padding:10px;border:1px solid #ddd;border-radius:8px;width:100%;max-width:200px}.footer{background-color:#2d3748;color:white;padding:40px 0}.footer a{color:#a0aec0;transition:color .3s ease}.footer a:hover{color:#fff}.price-cut{text-decoration:line-through;color:#999;font-size:20px}.discount-badge{background-color:#FF4757;color:white;padding:4px 8px;border-radius:4px;font-size:12px;margin-left:8px}
+  </style>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-6 py-24">
+    <h1 class="text-4xl font-bold text-center mb-8">Policies</h1>
+
+    <!-- Terms and Conditions -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Terms and Conditions</h2>
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <p class="mb-4">Welcome to Autumn! By accessing or using our website, you agree to comply with and be bound by the following terms and conditions. Please read them carefully.</p>
+        <ul class="list-disc list-inside space-y-2">
+          <li><strong>User Data:</strong> We collect and store your personal information, including your name, address, email, and phone number, to process your orders and improve your shopping experience. Your data is handled in accordance with our Privacy Policy.</li>
+          <li><strong>Account Responsibility:</strong> You are responsible for maintaining the confidentiality of your account and password. Any activity under your account is your responsibility.</li>
+          <li><strong>Product Information:</strong> We strive to provide accurate product descriptions and images. However, slight variations may occur, and we are not liable for such discrepancies.</li>
+          <li><strong>Order Acceptance:</strong> Placing an order on our website constitutes an offer to purchase. We reserve the right to accept or reject your order for any reason, including product availability or pricing errors.</li>
+          <li><strong>Payment:</strong> All payments are processed securely. We accept major credit/debit cards and other payment methods as indicated on our website.</li>
+          <li><strong>Changes to Terms:</strong> We may update these terms and conditions at any time. Continued use of our website constitutes acceptance of the updated terms.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Refund Policy -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Refund Policy</h2>
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <p class="mb-4">We want you to be completely satisfied with your purchase. If you are not satisfied, you may request a refund under the following conditions:</p>
+        <ul class="list-disc list-inside space-y-2">
+          <li><strong>Eligibility:</strong> Refunds are only available for items returned within 2 days of delivery. The item must be unused, in its original packaging, and with all tags attached.</li>
+          <li><strong>Process:</strong> To request a refund, contact our customer support team at <a href="mailto:support@autumn.com" class="text-indigo-600 hover:underline">@autumn.com</a> with your order details. We will provide a return authorization and instructions.</li>
+          <li><strong>Refund Timeframe:</strong> Once we receive and inspect the returned item, we will process your refund within 5-7 business days. Refunds will be issued to the original payment method.</li>
+          <li><strong>Non-Refundable Items:</strong> Certain items, such as personalized or custom-made products, are not eligible for refunds unless they are defective or damaged.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Return Policy -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Return Policy</h2>
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <p class="mb-4">If you are not satisfied with your purchase, you may return the item for an exchange or refund within 2 days of delivery. Please review the following guidelines:</p>
+        <ul class="list-disc list-inside space-y-2">
+          <li><strong>Condition:</strong> The item must be in its original condition, unused, and with all tags and packaging intact.</li>
+          <li><strong>Process:</strong> Contact our customer support team at <a href="mailto:support@autumn.com" class="text-indigo-600 hover:underline">@autumn.com</a> to initiate a return. We will provide a return authorization and shipping instructions.</li>
+          <li><strong>Shipping Costs:</strong> Customers are responsible for return shipping costs unless the return is due to a defective or incorrect item.</li>
+          <li><strong>Exchanges:</strong> If you wish to exchange an item, please indicate the desired replacement in your return request. Exchanges are subject to availability.</li>
+          <li><strong>Damaged or Defective Items:</strong> If you receive a damaged or defective item, please contact us immediately. We will cover the return shipping costs and provide a replacement or refund.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Privacy Policy -->
+    <section class="mb-12">
+      <h2 class="text-2xl font-semibold mb-4">Privacy Policy</h2>
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <p class="mb-4">Your privacy is important to us. This policy outlines how we collect, use, and protect your personal information:</p>
+        <ul class="list-disc list-inside space-y-2">
+          <li><strong>Data Collection:</strong> We collect personal information such as your name, address, email, and phone number when you place an order or create an account.</li>
+          <li><strong>Data Usage:</strong> Your information is used to process orders, improve our services, and communicate with you about your order and promotions.</li>
+          <li><strong>Data Protection:</strong> We implement security measures to protect your data from unauthorized access or disclosure.</li>
+          <li><strong>Third Parties:</strong> We do not sell or share your personal information with third parties except as necessary to fulfill your order (e.g., shipping carriers).</li>
+          <li><strong>Your Rights:</strong> You have the right to access, update, or delete your personal information. Contact us at <a href="mailto:support@autumn.com" class="text-indigo-600 hover:underline">@autumn.com</a> for assistance.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-amber-50 border-t-4 border-amber-200 shadow-lg">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8 lg:gap-12">
+        <!-- Brand Section -->
+        <div class="md:col-span-2">
+          <h3 class="text-2xl font-bold text-amber-900 mb-4">Autumn T-Shirts</h3>
+          <p class="text-amber-700 text-sm leading-relaxed">
+            Embrace seasonal style with our curated collection of autumn-inspired apparel.
+            Where comfort meets trend in every stitch.
+          </p>
+
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-amber-900 font-semibold mb-4 text-lg">Explore</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Men's Collection</a></li>
+            <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Women's Styles</a></li>
+          </ul>
+        </div>
+
+        <!-- Support -->
+        <div>
+          <h4 class="text-amber-900 font-semibold mb-4 text-lg">Support</h4>
+          <ul class="space-y-2">
+
+            <li><a href="./policies.html" class="text-amber-700 hover:text-amber-900 transition-colors">Terms and conditions</a></li>
+            <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Contact Support</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="text-amber-900 font-semibold mb-4 text-lg">Connect</h4>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <span class="text-amber-700">hello@autumn.com</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <span class="text-amber-700">+91 456 7890</span>
+            </div>
+          </div>
+
+          <!-- Social Icons -->
+          <div class="mt-4 flex gap-3">
+            <a href="#" class="p-2 bg-amber-100 rounded-full hover:bg-amber-200 transition-colors">
+              <svg class="w-5 h-5 text-amber-700" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+              </svg>
+            </a>
+            <a href="#" class="p-2 bg-amber-100 rounded-full hover:bg-amber-200 transition-colors">
+              <svg class="w-5 h-5 text-amber-700" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z" />
+              </svg>
+            </a>
+            <a href="#" class="p-2 bg-amber-100 rounded-full hover:bg-amber-200 transition-colors">
+              <svg class="w-5 h-5 text-amber-700" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="mt-12 pt-8 border-t border-amber-200 text-center">
+        <p class="text-sm text-amber-600">
+          © 2025 Autumn Styles.
+        </p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

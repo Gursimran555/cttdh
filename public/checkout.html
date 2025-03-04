@@ -4,10 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout</title>
-  <script defer src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script defer src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+  <style>
+    /* cormorant-garamond-latin-400-normal */
+  @font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff) format('woff');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+  }
+  </style>
+
+
+
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -110,37 +125,80 @@
         </div>
 
         <!-- User Details Form -->
-        <div class="card p-6 mb-6">
-          <h2 class="text-2xl font-semibold mb-4 text-slate-800">Contact Information</h2>
-          <form id="userDetailsForm" class="space-y-4">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block mb-2 text-sm font-medium text-slate-600">Full Name</label>
-                <input type="text" id="name" class="w-full input-field px-4 py-3 rounded-lg" placeholder="John Doe" required>
+          <!-- User Details Form -->
+          <div class="card p-6 mb-6">
+            <h2 class="text-2xl font-semibold mb-4 text-slate-800">Contact Information</h2>
+            <form id="userDetailsForm" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block mb-2 text-sm font-medium text-slate-600">Full Name</label>
+                  <input type="text" id="name" class="w-full input-field px-4 py-3 rounded-lg" placeholder="John Doe" required>
+                </div>
+                <div>
+                  <label class="block mb-2 text-sm font-medium text-slate-600">Phone Number</label>
+                  <input type="text" id="phone" class="w-full input-field px-4 py-3 rounded-lg" placeholder="+91 1234567890" required>
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block mb-2 text-sm font-medium text-slate-600">Street Address</label>
+                  <input type="text" id="addressLine1" class="w-full input-field px-4 py-3 rounded-lg" placeholder="123 Main Street" required>
+                </div>
+                <div class="sm:col-span-2">
+                  <input type="text" id="addressLine2" class="w-full input-field px-4 py-3 rounded-lg" placeholder="Apt, suite, or building (optional)">
+                </div>
+                <div>
+                  <label class="block mb-2 text-sm font-medium text-slate-600">ZIP Code</label>
+                  <input type="text" id="pinCode" class="w-full input-field px-4 py-3 rounded-lg" placeholder="123456" required>
+                </div>
+                <div>
+                  <label class="block mb-2 text-sm font-medium text-slate-600">State/UT</label>
+                  <select id="state" class="w-full input-field px-4 py-3 rounded-lg" required>
+                    <option value="">Select State/UT</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+                    <option value="Lakshadweep">Lakshadweep</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Puducherry">Puducherry</option>
+                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                    <option value="Ladakh">Ladakh</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block mb-2 text-sm font-medium text-slate-600">Estimated Delivery</label>
+                  <p id="deliveryEstimate" class="text-sm text-slate-600">Select a state/UT to see delivery estimate.</p>
+                </div>
               </div>
-              <div>
-                <label class="block mb-2 text-sm font-medium text-slate-600">Phone Number</label>
-                <input type="text" id="phone" class="w-full input-field px-4 py-3 rounded-lg" placeholder="+91 1234567890" required>
-              </div>
-              <div class="sm:col-span-2">
-                <label class="block mb-2 text-sm font-medium text-slate-600">Street Address</label>
-                <input type="text" id="addressLine1" class="w-full input-field px-4 py-3 rounded-lg" placeholder="123 Main Street" required>
-              </div>
-              <div class="sm:col-span-2">
-                <input type="text" id="addressLine2" class="w-full input-field px-4 py-3 rounded-lg" placeholder="Apt, suite, or building (optional)">
-              </div>
-              <div>
-                <label class="block mb-2 text-sm font-medium text-slate-600">ZIP Code</label>
-                <input type="text" id="pinCode" class="w-full input-field px-4 py-3 rounded-lg" placeholder="123456" required>
-              </div>
-              <div>
-                <label class="block mb-2 text-sm font-medium text-slate-600">State</label>
-                <input type="text" id="state" class="w-full input-field px-4 py-3 rounded-lg" placeholder="Maharashtra" required>
-              </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
-      </div>
 
       <!-- Right Side: Payment Details -->
       <div>
@@ -252,12 +310,70 @@
 
 
   <script defer>
+    // Existing cart and Razorpay integration code remains the same
+
+    // Delivery estimate logic
+    const deliveryEstimate = document.getElementById('deliveryEstimate');
+    const stateSelect = document.getElementById('state');
+
+    const deliveryTimes = {
+      "Uttar Pradesh": "5 Days",
+      "Kerala": "7 Days",
+      "Assam": "6 Days",
+      "Nagaland": "7 Days",
+      "Bihar": "5-7 Days",
+      "Chhattisgarh": "4-6 Days",
+      "Goa": "3-5 Days",
+      "Gujarat": "3-5 Days",
+      "Haryana": "2-3 Days",
+      "Jharkhand": "5-7 Days",
+      "Karnataka": "6-8 Days",
+      "Madhya Pradesh": "4-6 Days",
+      "Maharashtra": "3-5 Days",
+      "Manipur": "7-10 Days",
+      "Meghalaya": "7-10 Days",
+      "Mizoram": "7-10 Days",
+      "Odisha": "5-7 Days",
+      "Rajasthan": "3-5 Days",
+      "Sikkim": "7-10 Days",
+      "Tamil Nadu": "6-8 Days",
+      "Telangana": "6-8 Days",
+      "Tripura": "7-10 Days",
+      "Uttarakhand": "2-3 Days",
+      "West Bengal": "5-7 Days",
+      "Andaman and Nicobar Islands": "10-15 Days",
+      "Chandigarh": "2-3 Days",
+      "Dadra and Nagar Haveli and Daman and Diu": "5-7 Days",
+      "Lakshadweep": "10-15 Days",
+      "Delhi": "2-3 Days",
+      "Puducherry": "6-8 Days",
+      "Jammu and Kashmir": "7-10 Days",
+      "Ladakh": "7-10 Days",
+      "Punjab": "4 Days",
+      "Himachal Pradesh": "1-2 Days",
+      "Andhra Pradesh": "6-8 Days",
+      "Arunachal Pradesh": "7-10 Days"
+    };
+
+    stateSelect.addEventListener('change', () => {
+      const selectedState = stateSelect.value;
+      if (selectedState && deliveryTimes[selectedState]) {
+        deliveryEstimate.textContent = `Estimated Delivery: ${deliveryTimes[selectedState]}`;
+      } else {
+        deliveryEstimate.textContent = "Select a state/UT to see delivery estimate.";
+      }
+    });
+  </script>
+
+
+
+  <script defer>
     const cartItemsList = document.getElementById('cartItemsList');
     const cartTotal = document.getElementById('cartTotal');
     const rzpButton = document.getElementById('rzp-button');
     let cartItems = [];
     let totalAmount = 0;
-
+  
     // Fetch cart items with token
     fetch('/cart', {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
@@ -267,7 +383,7 @@
       cartItems = items;
       totalAmount = 0;
       cartItemsList.innerHTML = '';
-
+  
       if (items.length === 0) {
         cartItemsList.innerHTML = '<p class="text-center text-gray-300">Your cart is empty.</p>';
       } else {
@@ -282,10 +398,10 @@
             <div class="font-bold">₹${(item.products.price * item.quantity).toFixed(2)}</div>
           `;
           cartItemsList.appendChild(itemElement);
-
+  
           totalAmount += item.products.price * item.quantity;
         });
-
+  
         cartTotal.textContent = totalAmount.toFixed(2);
       }
     })
@@ -293,7 +409,22 @@
       console.error('Error fetching cart items:', error);
       alert('Failed to fetch cart items. Please try again.');
     });
-
+  
+    // Fetch Razorpay key
+    let razorpayKey;
+  
+    fetch('/get-razorpay-key', {
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+    })
+    .then(res => res.json())
+    .then(data => {
+      razorpayKey = data.key;
+    })
+    .catch(error => {
+      console.error('Error fetching Razorpay key:', error);
+      alert('Failed to fetch Razorpay key. Please try again.');
+    });
+  
     // Razorpay Integration
     rzpButton.addEventListener('click', async () => {
       const name = document.getElementById('name').value;
@@ -302,12 +433,12 @@
       const addressLine2 = document.getElementById('addressLine2').value;
       const pinCode = document.getElementById('pinCode').value;
       const state = document.getElementById('state').value;
-
+  
       if (!name || !phone || !addressLine1 || !pinCode || !state) {
         alert('Please fill in your details before paying.');
         return;
       }
-
+  
       // Create a Razorpay order
       const response = await fetch('/create-razorpay-order', {
         method: 'POST',
@@ -317,12 +448,12 @@
         },
         body: JSON.stringify({ amount: totalAmount }),
       });
-
+  
       const { order } = await response.json();
-
+  
       // Razorpay checkout options
       const options = {
-        key: 'rzp7j', // Replace with your Razorpay key ID
+        key: razorpayKey, // Use the fetched Razorpay key
         amount: order.amount,
         currency: order.currency,
         order_id: order.id,
@@ -331,7 +462,7 @@
         handler: async function (response) {
           // Handle successful payment
           const paymentId = response.razorpay_payment_id;
-
+  
           // Place the order
           const orderResponse = await fetch('/checkout', {
             method: 'POST',
@@ -349,9 +480,9 @@
               paymentId: paymentId,
             }),
           });
-
+  
           const orderData = await orderResponse.json();
-
+  
           if (orderData.success) {
             window.location.href = '/orderconfirm.html';
           } else {
@@ -367,7 +498,7 @@
           color: '#667eea',
         },
       };
-
+  
       const rzp = new Razorpay(options);
       rzp.open();
     });

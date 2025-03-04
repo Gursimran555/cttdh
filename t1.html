@@ -1,13 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Autumn</title>
+
+  <!-- Defer JavaScript -->
+  <script defer src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Preconnect to Google Fonts for faster loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Load Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
-  <img src="https://udgvgfucuygzphubqwid.supabase.co/storage/v1/object/public/products-images/product1.jpg" 
-     onerror="console.error('Image failed to load due to CORS');" 
-     width="300">
-</body>
-</html>
+
+<style>
+  /* cormorant-garamond-latin-400-normal */
+  @font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff) format('woff');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
+</style>
+<style>
+  /* Minified CSS */
+  .heart-button {
+    transition: color .3s ease, transform .3s ease
+  }
+
+  .heart-button:hover {
+    transform: scale(1.1)
+  }
+
+  .heart-button .fa-heart {
+    transition: color .3s ease
+  }
+
+  .heart-button .fa-heart.text-red-500 {
+    color: #ef4444
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif
+  }
+
+  .product-card {
+    transition: transform .3s ease, box-shadow .3s ease
+  }
+
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .15)
+  }
+
+  .hero-section {
+    background-image: url('https://cdn.pixabay.com/photo/2023/10/15/12/34/autumn-8316241_1280.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+  }
+
+  .hero-content {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 40px;
+    border-radius: 12px;
+  }
+
+  .view-details-btn {
+    background-color: #FFA500;
+    color: white;
+    width: 100%;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color .3s ease
+  }
+
+  .view-details-btn:hover {
+    background-color: #FF8C00
+  }
+
+  .filter-section {
+    background-color: #f9fafb;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, .1);
+    display: flex;
+    flex-direction: column;
+    gap: 16px
+  }
+
+  .filter-section select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 200px
+  }
+
+  .footer {
+    background-color: #2d3748;
+    color: white;
+    padding: 40px 0
+  }
+
+  .footer a {
+    color: #a0aec0;
+    transition: color .3s ease
+  }
+
+  .footer a:hover {
+    color: #fff
+  }
+
+  .price-cut {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 20px
+  }
+
+  .discount-badge {
+    background-color: #FF4757;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-left: 8px
+  }
+</style>
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+  <!-- Navigation -->
+  <header class="bg-white shadow-lg fixed w-full z-10">
+    <div class="container mx-auto px-6 py-4 flex flex-wrap justify-between items-center">
+      <!-- Logo -->
+      <a href="/">
+        <img src="./images/logo.png" alt="Autumn Logo" class="h-10">
+      </a>
+
+      <!-- Icons Section -->
+      <div class="flex items-center gap-4">
+        <a id="loginButton" href="/auth.html" class="text-gray-700 hover:text-indigo-600 transition duration-300">
+          <i class="fas fa-user text-2xl"></i>
+        </a>
+        <a id="logoutButton" href="#" class="text-gray-700 hover:text-red-600 transition duration-300 hidden">
+          <i class="fas fa-sign-out-alt text-2xl"></i>
+        </a>
+        <a href="/cart.html" class="text-gray-700 hover:text-green-600 transition duration-300">
+          <i class="fas fa-shopping-cart text-2xl"></i>
+        </a>
+
+        <a href="/wishlist.html" class="text-gray-700 hover:text-green-600 transition duration-300">
+          <i class="fas fa-heart text-2xl"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h2 class="text-5xl font-bold mb-4">Welcome to Autumn</h2>
+      <p class="text-xl mb-8">Discover the best t-shirts for men and women at unbeatable prices.</p>
+      <a href="#products" class="bg-white text-stone-950 px-12 py-6 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 text-lg">Shop Now</a>
+    </div>
+    <!-- Local Images -->
+    <div class="absolute bottom-0 left-0 right-0 flex justify-center gap-8">
+      <img src="./images/local-image1.jpg" alt="Local Image 1" class="w-48 h-48 object-cover rounded-lg shadow-lg">
+      <img src="./images/local-image2.jpg" alt="Local Image 2" class="w-48 h-48 object-cover rounded-lg shadow-lg">
+    </div>
+  </section>
+
+  <!-- Sorting Options -->
+  <div class="container mx-auto px-6 py-12">
+    <div class="filter-section">
+      <div class="flex flex-wrap gap-4">
+        <select id="gender" class="p-2 border rounded-lg">
+          <option value="">All Genders</option>
+          <option value="men">Men</option>
+          <option value="women">Women</option>
+        </select>
+        <select id="size" class="p-2 border rounded-lg">
+          <option value="">All Sizes</option>
+          <option value="S">Small (S)</option>
+          <option value="M">Medium (M)</option>
+          <option value="L">Large (L)</option>
+          <option value="XL">Extra Large (XL)</option>
+        </select>
+        <select id="color" class="p-2 border rounded-lg">
+          <option value="">All Colors</option>
+          <option value="red">Red</option>
+          <option value="blue">Blue</option>
+          <option value="green">Green</option>
+          <option value="black">Black</option>
+          <option value="white">White</option>
+        </select>
+        <select id="price" class="p-2 border rounded-lg">
+          <option value="">Price</option>
+          <option value="asc">Low to High</option>
+          <option value="desc">High to Low</option>
+        </select>
+        <button id="applyFilters" class="bg-stone-700 text-white px-6 py-2 rounded-lg hover:bg-stone-950 transition duration-300">
+          Apply Filters
+        </button>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div id="products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <!-- Products will be dynamically loaded here -->
+    </div>
+  </div>
+
+  <footer class="bg-amber-50 border-t-4 border-amber-200 shadow-lg">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-8 lg:gap-12">
+        <!-- Brand Section -->
+        <div class="md:col-span-2">
+          <h3 class="text-2xl font-bold text-amber-900 mb-4">Autumn T-Shirts</h3>
+          <p class="text-amber-700 text-sm leading-relaxed">
+            Embrace seasonal style with our curated collection of autumn-inspired apparel.
+            Where comfort meets trend in every stitch.
+          </p>
+
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-amber-900 font-semibold mb-4 text-lg">Explore</h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Men's Collection</a></li>
+            <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Women's Styles</a></li>
+          </ul>
+        </div>
+
+        <!-- Support -->
+        <div>
+          <h4 class="text-amber-900 font-semibold mb-4 text-lg">Support</h4>
+          <ul class="space-y-2">
+
+            <li><a href="./policies.html" class="text-amber-700 hover:text-amber-900 transition-colors">Terms and conditions</a></li>
+            <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Contact Support</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="text-amber-900 font-semibold mb-4 text-lg">Connect</h4>
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <span class="text-amber-700">hello@autumn.com</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949

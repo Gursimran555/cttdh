@@ -26,6 +26,11 @@ const razorpay = new Razorpay({
   key_secret: process.env.RAZORPAY_KEY_SECRET, 
 });
 
+// Add this route to your server.js file
+app.get("/get-razorpay-key", authenticateToken, (req, res) => {
+  res.json({ key: process.env.RAZORPAY_KEY_ID });
+});
+
 
 
 // Middleware to authenticate routes
@@ -82,6 +87,12 @@ app.get("/product/:id", async (req, res) => {
     return res.status(500).json({ success: false, message: "Failed to fetch product" });
   }
 
+  // Combine all image URLs into an array, filtering out null values
+  const images = [product.image_url, product.image_url2, product.image_url3].filter(url => url);
+
+  // Add the images array to the product object
+  product.images = images;
+
   res.json(product);
 });
 
@@ -91,7 +102,7 @@ app.get("/product/:id/reviews", async (req, res) => {
 
   const { data: reviews, error } = await supabase
     .from("reviews")
-    .select("*, users(email)")
+    .select("*, users(full_name)")
     .eq("product_id", productId);
 
   if (error) {
@@ -462,7 +473,7 @@ app.post("/wishlist", authenticateToken, async (req, res) => {
 
   if (existingWishlistItem) {
     return res.status(400).json({ success: false, message: "Product already in wishlist" });
-  }
+  } 
 
   // Insert new item if the product does not exist in the wishlist
   const { data: wishlistItem, error: insertError } = await supabase
