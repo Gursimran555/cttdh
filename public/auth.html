@@ -111,8 +111,9 @@
           <h4 class="text-amber-900 font-semibold mb-4 text-lg">Support</h4>
           <ul class="space-y-2">
             
-            <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Terms and conditions</a></li>
-            <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Contact Support</a></li>
+            <li><a href="./policies.html" class="text-amber-700 hover:text-amber-900 transition-colors">Terms and conditions</a></li>
+            <li><a href="./contact-support.html" class="text-amber-700 hover:text-amber-900 transition-colors">Contact Support</a></li>
+            <li><a href="./report-bug.html" class="text-amber-700 hover:text-amber-900 transition-colors">Report a Bug</a></li>
           </ul>
         </div>
   
@@ -193,44 +194,55 @@
     });
 
     authForm.addEventListener('submit', e => {
-      e.preventDefault();
+  e.preventDefault();
 
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
 
-      if (!isLogin) {
-        const fullName = fullNameInput.value;
-        const mobile = mobileInput.value;
+  if (!isLogin) {
+    const fullName = fullNameInput.value;
+    const mobile = mobileInput.value;
 
-        if (!fullName || !mobile || !email || !password) {
-          alert('All fields are required for signup.');
-          return;
-        }
+    if (!fullName || !mobile || !email || !password) {
+      alert('All fields are required for signup.');
+      return;
+    }
+  }
+
+  const payload = isLogin ? { email, password } : {
+    fullName: fullNameInput.value,
+    mobile: mobileInput.value,
+    email,
+    password,
+  };
+
+  fetch(isLogin ? '/login' : '/signup', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+    .then(res => {
+      if (res.status === 429) {
+        // Handle rate-limiting error
+        return res.json().then(data => {
+          alert(data.message); // Display the cooldown message
+          throw new Error(data.message);
+        });
       }
-
-      const payload = isLogin ? { email, password } : {
-        fullName: fullNameInput.value,
-        mobile: mobileInput.value,
-        email,
-        password,
-      };
-
-      fetch(isLogin ? '/login' : '/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            localStorage.setItem('token', data.token);
-            window.location.href = '/';
-          } else {
-            alert(data.message);
-          }
-        })
-        .catch(err => console.error('Error:', err));
+      return res.json();
+    })
+    .then(data => {
+      if (data.success) {
+        localStorage.setItem('token', data.token);
+        window.location.href = '/';
+      } else {
+        alert(data.message || 'Invalid credentials');
+      }
+    })
+    .catch(err => {
+      console.error('Error:', err);
     });
+});
   </script>
 </body>
 </html>

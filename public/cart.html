@@ -8,21 +8,17 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-
   <style>
     /* cormorant-garamond-latin-400-normal */
-  @font-face {
-    font-family: 'Cormorant Garamond';
-    font-style: normal;
-    font-display: swap;
-    font-weight: 400;
-    src: url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff) format('woff');
-    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-  }
-  </style>
+    @font-face {
+      font-family: 'Cormorant Garamond';
+      font-style: normal;
+      font-display: swap;
+      font-weight: 400;
+      src: url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff) format('woff');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
 
-
-  <style>
     body {
       font-family: 'Poppins', sans-serif;
     }
@@ -30,33 +26,48 @@
     .cart-item:hover .remove-item {
       opacity: 1;
     }
+
+    .price-cut {
+      text-decoration: line-through;
+      color: #999;
+      font-size: 16px;
+      margin-right: 8px;
+    }
+
+    .discount-badge {
+      background-color: #FF4757;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      margin-left: 8px;
+    }
   </style>
 </head>
 
 <body class="bg-gray-50">
   <!-- Navigation -->
-  <!-- Navigation -->
-<header class="bg-white shadow-lg fixed w-full z-10">
-  <div class="container mx-auto px-6 py-4 flex flex-wrap justify-between items-center">
-    <!-- Logo -->
-    <a href="/">
-      <img src="./images/logo.png" alt="Autumn Logo" class="h-10">
-    </a>
+  <header class="bg-white shadow-lg fixed w-full z-10">
+    <div class="container mx-auto px-6 py-4 flex flex-wrap justify-between items-center">
+      <!-- Logo -->
+      <a href="/">
+        <img src="./images/logo.png" alt="Autumn Logo" class="h-10">
+      </a>
 
-    <!-- Icons Section -->
-    <div class="flex items-center gap-4">
-      <a id="loginButton" href="/auth.html" class="text-gray-700 hover:text-indigo-600 transition duration-300">
-        <i class="fas fa-user text-2xl"></i>
-      </a>
-      <a id="logoutButton" href="#" class="text-gray-700 hover:text-red-600 transition duration-300 hidden">
-        <i class="fas fa-sign-out-alt text-2xl"></i>
-      </a>
-      <a href="/cart.html" class="text-gray-700 hover:text-green-600 transition duration-300">
-        <i class="fas fa-shopping-cart text-2xl"></i>
-      </a>
+      <!-- Icons Section -->
+      <div class="flex items-center gap-4">
+        <a id="loginButton" href="/auth.html" class="text-gray-700 hover:text-indigo-600 transition duration-300">
+          <i class="fas fa-user text-2xl"></i>
+        </a>
+        <a id="logoutButton" href="#" class="text-gray-700 hover:text-red-600 transition duration-300 hidden">
+          <i class="fas fa-sign-out-alt text-2xl"></i>
+        </a>
+        <a href="/cart.html" class="text-gray-700 hover:text-green-600 transition duration-300">
+          <i class="fas fa-shopping-cart text-2xl"></i>
+        </a>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
   <br><br>
   <!-- Main Content -->
@@ -67,7 +78,7 @@
         <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
           <div class="flex items-center justify-between mb-6">
             <h1 class="text-2xl font-bold text-gray-900">Shopping Cart</h1>
-            <span id="itemCount" class="text-gray-500">0 Items</span> <!-- Updated this line -->
+            <span id="itemCount" class="text-gray-500">0 Items</span>
           </div>
 
           <div id="cartItems" class="space-y-4">
@@ -87,8 +98,8 @@
                 class="w-64 mx-auto" alt="Empty cart">
             </div>
             <p class="text-gray-600 mb-6 text-lg">Your cart feels lonely...</p>
-            <a href="/" class="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 
-              transition duration-300 inline-flex items-center">
+            <a href="/"
+              class="bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition duration-300 inline-flex items-center">
               <i class="fas fa-store mr-2"></i>
               Start Shopping
             </a>
@@ -103,72 +114,34 @@
           <div class="space-y-4 mb-6">
             <div class="flex justify-between">
               <span class="text-gray-600">Subtotal</span>
-              <span id="subtotal" class="font-medium">$0.00</span>
+              <span id="subtotal" class="font-medium">₹0.00</span>
             </div>
             <div class="flex justify-between">
               <span class="text-gray-600">Shipping</span>
-              <span class="font-medium text-green-600">Free</span>
+              <span id="shipping" class="font-medium text-green-600">₹0.00</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-gray-600">Discount</span>
-              <span id="discount" class="font-medium text-red-600">-$0.00</span>
+              <span class="text-gray-600">Discount (20%)</span>
+              <span id="discount" class="font-medium text-red-600">-₹0.00</span>
             </div>
           </div>
 
           <div class="border-t pt-4 mb-6">
             <div class="flex justify-between text-lg font-bold">
               <span>Total</span>
-              <span id="total">$0.00</span>
+              <span id="total">₹0.00</span>
             </div>
           </div>
 
-          <button id="checkoutButton" class="w-full bg-gradient-to-r from-indigo-600 to-indigo-500 text-white py-4 rounded-xl
-                         font-semibold hover:from-indigo-700 hover:to-indigo-600 transition-all 
-                         duration-300 shadow-lg shadow-indigo-100 hover:shadow-indigo-200">
+          <button id="checkoutButton"
+            class="w-full bg-gradient-to-r from-indigo-600 to-indigo-500 text-white py-4 rounded-xl font-semibold hover:from-indigo-700 hover:to-indigo-600 transition-all duration-300 shadow-lg shadow-indigo-100 hover:shadow-indigo-200">
             Checkout Now
           </button>
         </div>
       </div>
     </div>
-
-    <!-- Shipping Form -->
-    <div id="shippingForm" class="hidden bg-white rounded-xl shadow-sm p-6 mt-8 max-w-2xl mx-auto">
-      <h2 class="text-2xl font-bold mb-8">Shipping Information</h2>
-      <form id="checkoutForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
-          <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 
-                        focus:ring-indigo-500 focus:border-indigo-500 transition">
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
-          <input type="tel" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 
-                        focus:ring-indigo-500 focus:border-indigo-500 transition">
-        </div>
-        <div class="md:col-span-2">
-          <label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
-          <textarea required rows="3" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 
-                           focus:ring-indigo-500 focus:border-indigo-500 transition"></textarea>
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">City</label>
-          <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 
-                        focus:ring-indigo-500 focus:border-indigo-500 transition">
-        </div>
-        <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">State</label>
-          <input type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 
-                        focus:ring-indigo-500 focus:border-indigo-500 transition">
-        </div>
-        <div class="md:col-span-2">
-          <button type="submit" class="w-full bg-indigo-600 text-white px-8 py-4 rounded-lg font-semibold 
-                         hover:bg-indigo-700 transition duration-300">
-            Complete Order
-          </button>
-        </div>
-      </form>
-    </div>
   </main>
+
   <footer class="bg-amber-50 border-t-4 border-amber-200 shadow-lg">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div class="grid grid-cols-1 md:grid-cols-5 gap-8 lg:gap-12">
@@ -176,12 +149,12 @@
         <div class="md:col-span-2">
           <h3 class="text-2xl font-bold text-amber-900 mb-4">Autumn T-Shirts</h3>
           <p class="text-amber-700 text-sm leading-relaxed">
-            Embrace seasonal style with our curated collection of autumn-inspired apparel. 
+            Embrace seasonal style with our curated collection of autumn-inspired apparel.
             Where comfort meets trend in every stitch.
           </p>
-        
+
         </div>
-  
+
         <!-- Quick Links -->
         <div>
           <h4 class="text-amber-900 font-semibold mb-4 text-lg">Explore</h4>
@@ -190,56 +163,62 @@
             <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Women's Styles</a></li>
           </ul>
         </div>
-  
+
         <!-- Support -->
         <div>
           <h4 class="text-amber-900 font-semibold mb-4 text-lg">Support</h4>
           <ul class="space-y-2">
-            
+
             <li><a href="./policies.html" class="text-amber-700 hover:text-amber-900 transition-colors">Terms and conditions</a></li>
-            <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Contact Support</a></li>
+            <li><a href="./contact-support.html" class="text-amber-700 hover:text-amber-900 transition-colors">Contact Support</a></li>
+            <li><a href="./report-bug.html" class="text-amber-700 hover:text-amber-900 transition-colors">Report a Bug</a></li>
           </ul>
         </div>
-  
+
         <!-- Contact -->
         <div>
           <h4 class="text-amber-900 font-semibold mb-4 text-lg">Connect</h4>
           <div class="space-y-2">
             <div class="flex items-center gap-2">
               <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
               <span class="text-amber-700">hello@autumn.com</span>
             </div>
             <div class="flex items-center gap-2">
               <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
               <span class="text-amber-700">+91 456 7890</span>
             </div>
           </div>
-          
+
           <!-- Social Icons -->
           <div class="mt-4 flex gap-3">
             <a href="#" class="p-2 bg-amber-100 rounded-full hover:bg-amber-200 transition-colors">
               <svg class="w-5 h-5 text-amber-700" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                <path
+                  d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
               </svg>
             </a>
             <a href="#" class="p-2 bg-amber-100 rounded-full hover:bg-amber-200 transition-colors">
               <svg class="w-5 h-5 text-amber-700" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z"/>
+                <path
+                  d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z" />
               </svg>
             </a>
             <a href="#" class="p-2 bg-amber-100 rounded-full hover:bg-amber-200 transition-colors">
               <svg class="w-5 h-5 text-amber-700" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
               </svg>
             </a>
           </div>
         </div>
       </div>
-  
+
       <!-- Copyright -->
       <div class="mt-12 pt-8 border-t border-amber-200 text-center">
         <p class="text-sm text-amber-600">
@@ -253,24 +232,23 @@
     const cartItemsContainer = document.getElementById('cartItems');
     const emptyCart = document.getElementById('emptyCart');
     const orderSummary = document.getElementById('orderSummary');
-    const shippingForm = document.getElementById('shippingForm');
-    const checkoutForm = document.getElementById('checkoutForm');
     const loading = document.getElementById('loading');
     const subtotalElement = document.getElementById('subtotal');
-    const totalElement = document.getElementById('total');
+    const shippingElement = document.getElementById('shipping');
     const discountElement = document.getElementById('discount');
+    const totalElement = document.getElementById('total');
     const checkoutButton = document.getElementById('checkoutButton');
-    const itemCountElement = document.getElementById('itemCount'); // Added this line
+    const itemCountElement = document.getElementById('itemCount');
 
     let cartData = [];
-    const SHIPPING = 0;
-    const DISCOUNT = 0;
+    let deliveryCharges = 0;
 
     checkoutButton.addEventListener('click', () => {
       window.location.href = '/checkout.html';
     });
 
     // Fetch cart data
+    // Updated fetchCart function
     async function fetchCart() {
       try {
         loading.classList.remove('hidden');
@@ -279,17 +257,41 @@
           throw new Error('No token found');
         }
 
+        // Fetch cart items
         const response = await fetch('/cart', {
           headers: { Authorization: `Bearer ${token}` }
         });
 
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 
-        cartData = await response.json();
-        renderCart();
+        const cartData = await response.json();
+
+        // Fetch product prices from the server
+        const productIds = cartData.map(item => item.product_id);
+        const pricesResponse = await fetch('/products/prices', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ productIds })
+        });
+
+        if (!pricesResponse.ok) throw new Error('Failed to fetch product prices');
+
+        const productPrices = await pricesResponse.json();
+
+        // Create a map of product prices for quick lookup
+        const productPriceMap = productPrices.reduce((map, product) => {
+          map[product.id] = product.price;
+          return map;
+        }, {});
+
+        // Render the cart with the correct prices
+        renderCart(cartData, productPriceMap);
       } catch (error) {
         console.error('Fetch error:', error);
-        alert('please login ');
+        alert('Please login to view your cart.');
         window.location.href = '/auth.html';
         return;
       } finally {
@@ -298,47 +300,47 @@
     }
 
     // Render cart items
-    function renderCart() {
+    // Updated renderCart function
+    function renderCart(cartData, productPriceMap) {
       if (!cartData.length) {
         emptyCart.classList.remove('hidden');
         orderSummary.classList.add('hidden');
-        shippingForm.classList.add('hidden');
-        itemCountElement.textContent = '0 Items'; // Updated this line
+        itemCountElement.textContent = '0 Items';
         return;
       }
 
       emptyCart.classList.add('hidden');
       orderSummary.classList.remove('hidden');
-      shippingForm.classList.add('hidden');
-      itemCountElement.textContent = `${cartData.length} Items`; // Updated this line
+      itemCountElement.textContent = `${cartData.length} Items`;
 
+      // Render cart items with correct prices
       cartItemsContainer.innerHTML = cartData.map(item => `
-        <div class="bg-white p-6 rounded-lg shadow-lg flex items-center justify-between">
-          <div class="flex items-center space-x-6">
-            <img src="${item.products.image_url}" alt="${item.products.name}" class="w-24 h-24 object-cover rounded-lg">
-            <div>
-              <h3 class="text-xl font-bold">${item.products.name}</h3>
-              <p class="text-gray-600">₹${item.products.price}</p>
-              <div class="flex items-center space-x-4 mt-2">
-                <button onclick="updateQuantity(${item.id}, -1)" class="text-gray-600 hover:text-gray-900">
-                  −
-                </button>
-                <span>${item.quantity}</span>
-                <button onclick="updateQuantity(${item.id}, 1)" class="text-gray-600 hover:text-gray-900">
-                  +
-                </button>
-              </div>
-            </div>
+    <div class="bg-white p-6 rounded-lg shadow-lg flex items-center justify-between">
+      <div class="flex items-center space-x-6">
+        <img src="${item.products.image_url}" alt="${item.products.name}" class="w-24 h-24 object-cover rounded-lg">
+        <div>
+          <h3 class="text-xl font-bold">${item.products.name}</h3>
+          <p class="text-gray-600">
+            <span class="price-cut">₹${(productPriceMap[item.product_id] * 1.2).toFixed(2)}</span>
+            <span class="text-green-600">₹${productPriceMap[item.product_id].toFixed(2)}</span>
+            <span class="discount-badge">20% off</span>
+          </p>
+          <div class="flex items-center space-x-4 mt-2">
+            <button onclick="updateQuantity(${item.id}, -1)" class="text-gray-600 hover:text-gray-900">−</button>
+            <span>${item.quantity}</span>
+            <button onclick="updateQuantity(${item.id}, 1)" class="text-gray-600 hover:text-gray-900">+</button>
           </div>
-          <button onclick="removeItem(${item.id})" class="text-red-500 hover:text-red-700">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-            </svg>
-          </button>
         </div>
-      `).join('');
+      </div>
+      <button onclick="removeItem(${item.id})" class="text-red-500 hover:text-red-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+        </svg>
+      </button>
+    </div>
+  `).join('');
 
-      updateTotals();
+      updateTotals(cartData, productPriceMap);
     }
 
     // Update item quantity
@@ -386,19 +388,34 @@
     }
 
     // Update order totals
-    function updateTotals() {
+    // Updated updateTotals function
+    function updateTotals(cartData, productPriceMap) {
       const subtotal = cartData.reduce((sum, item) => {
-        const price = parseFloat(item.products.price);
+        const price = parseFloat(productPriceMap[item.product_id]);
         const quantity = parseInt(item.quantity);
         return sum + (price * quantity);
       }, 0);
 
-      const total = subtotal + SHIPPING - DISCOUNT;
+      // Apply 20% discount (show original price as 120, final price as 100)
+      const originalSubtotal = subtotal * 1.2;
+      const discount = originalSubtotal - subtotal;
 
-      subtotalElement.textContent = `₹${subtotal.toFixed(2)}`;
+      // Add ₹50 shipping charge if subtotal is less than 500
+      if (subtotal < 500) {
+        deliveryCharges = 50;
+      } else {
+        deliveryCharges = 0;
+      }
+
+      const total = subtotal + deliveryCharges;
+
+      // Update the UI
+      subtotalElement.textContent = `₹${originalSubtotal.toFixed(2)}`;
+      shippingElement.textContent = `₹${deliveryCharges.toFixed(2)}`;
+      discountElement.textContent = `-₹${discount.toFixed(2)}`;
       totalElement.textContent = `₹${total.toFixed(2)}`;
-      discountElement.textContent = `-₹${DISCOUNT.toFixed(2)}`;
 
+      // Enable/disable buttons based on cart items
       checkoutButton.disabled = cartData.length === 0;
     }
 

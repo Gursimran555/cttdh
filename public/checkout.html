@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,14 +12,14 @@
 
   <style>
     /* cormorant-garamond-latin-400-normal */
-  @font-face {
-    font-family: 'Cormorant Garamond';
-    font-style: normal;
-    font-display: swap;
-    font-weight: 400;
-    src: url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff) format('woff');
-    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-  }
+    @font-face {
+      font-family: 'Cormorant Garamond';
+      font-style: normal;
+      font-display: swap;
+      font-weight: 400;
+      src: url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff) format('woff');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
   </style>
 
 
@@ -79,30 +80,31 @@
     }
   </style>
 </head>
+
 <body class="min-h-screen">
   <div>
     <!-- Navigation -->
-<header class="bg-white shadow-lg fixed w-full z-10">
-  <div class="container mx-auto px-6 py-4 flex flex-wrap justify-between items-center">
-    <!-- Logo -->
-    <a href="/">
-      <img src="./images/logo.png" alt="Autumn Logo" class="h-10">
-    </a>
+    <header class="bg-white shadow-lg fixed w-full z-10">
+      <div class="container mx-auto px-6 py-4 flex flex-wrap justify-between items-center">
+        <!-- Logo -->
+        <a href="/">
+          <img src="./images/logo.png" alt="Autumn Logo" class="h-10">
+        </a>
 
-    <!-- Icons Section -->
-    <div class="flex items-center gap-4">
-      <a id="loginButton" href="/auth.html" class="text-gray-700 hover:text-indigo-600 transition duration-300">
-        <i class="fas fa-user text-2xl"></i>
-      </a>
-      <a id="logoutButton" href="#" class="text-gray-700 hover:text-red-600 transition duration-300 hidden">
-        <i class="fas fa-sign-out-alt text-2xl"></i>
-      </a>
-      <a href="/cart.html" class="text-gray-700 hover:text-green-600 transition duration-300">
-        <i class="fas fa-shopping-cart text-2xl"></i>
-      </a>
-    </div>
-  </div>
-</header>
+        <!-- Icons Section -->
+        <div class="flex items-center gap-4">
+          <a id="loginButton" href="/auth.html" class="text-gray-700 hover:text-indigo-600 transition duration-300">
+            <i class="fas fa-user text-2xl"></i>
+          </a>
+          <a id="logoutButton" href="#" class="text-gray-700 hover:text-red-600 transition duration-300 hidden">
+            <i class="fas fa-sign-out-alt text-2xl"></i>
+          </a>
+          <a href="/cart.html" class="text-gray-700 hover:text-green-600 transition duration-300">
+            <i class="fas fa-shopping-cart text-2xl"></i>
+          </a>
+        </div>
+      </div>
+    </header>
 
   </div>
 
@@ -122,83 +124,94 @@
           <div class="text-right font-bold text-xl mt-4 text-slate-800">
             Total: ₹<span id="cartTotal">0.00</span>
           </div>
+          <div id="deliveryChargesMessage" class="text-sm text-red-600 mt-2 hidden">
+            Additional ₹50 delivery charges will be added for orders below ₹500.
+          </div>
+          <div id="codDeliveryChargesMessage" class="text-sm text-red-600 mt-2 hidden">
+            Additional ₹50 delivery charges will be added for Cash on Delivery.
+          </div>
         </div>
 
         <!-- User Details Form -->
-          <!-- User Details Form -->
-          <div class="card p-6 mb-6">
-            <h2 class="text-2xl font-semibold mb-4 text-slate-800">Contact Information</h2>
-            <form id="userDetailsForm" class="space-y-4">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label class="block mb-2 text-sm font-medium text-slate-600">Full Name</label>
-                  <input type="text" id="name" class="w-full input-field px-4 py-3 rounded-lg" placeholder="John Doe" required>
-                </div>
-                <div>
-                  <label class="block mb-2 text-sm font-medium text-slate-600">Phone Number</label>
-                  <input type="text" id="phone" class="w-full input-field px-4 py-3 rounded-lg" placeholder="+91 1234567890" required>
-                </div>
-                <div class="sm:col-span-2">
-                  <label class="block mb-2 text-sm font-medium text-slate-600">Street Address</label>
-                  <input type="text" id="addressLine1" class="w-full input-field px-4 py-3 rounded-lg" placeholder="123 Main Street" required>
-                </div>
-                <div class="sm:col-span-2">
-                  <input type="text" id="addressLine2" class="w-full input-field px-4 py-3 rounded-lg" placeholder="Apt, suite, or building (optional)">
-                </div>
-                <div>
-                  <label class="block mb-2 text-sm font-medium text-slate-600">ZIP Code</label>
-                  <input type="text" id="pinCode" class="w-full input-field px-4 py-3 rounded-lg" placeholder="123456" required>
-                </div>
-                <div>
-                  <label class="block mb-2 text-sm font-medium text-slate-600">State/UT</label>
-                  <select id="state" class="w-full input-field px-4 py-3 rounded-lg" required>
-                    <option value="">Select State/UT</option>
-                    <option value="Uttar Pradesh">Uttar Pradesh</option>
-                    <option value="Kerala">Kerala</option>
-                    <option value="Assam">Assam</option>
-                    <option value="Nagaland">Nagaland</option>
-                    <option value="Bihar">Bihar</option>
-                    <option value="Chhattisgarh">Chhattisgarh</option>
-                    <option value="Goa">Goa</option>
-                    <option value="Gujarat">Gujarat</option>
-                    <option value="Haryana">Haryana</option>
-                    <option value="Jharkhand">Jharkhand</option>
-                    <option value="Karnataka">Karnataka</option>
-                    <option value="Madhya Pradesh">Madhya Pradesh</option>
-                    <option value="Maharashtra">Maharashtra</option>
-                    <option value="Manipur">Manipur</option>
-                    <option value="Meghalaya">Meghalaya</option>
-                    <option value="Mizoram">Mizoram</option>
-                    <option value="Odisha">Odisha</option>
-                    <option value="Rajasthan">Rajasthan</option>
-                    <option value="Sikkim">Sikkim</option>
-                    <option value="Tamil Nadu">Tamil Nadu</option>
-                    <option value="Telangana">Telangana</option>
-                    <option value="Tripura">Tripura</option>
-                    <option value="Uttarakhand">Uttarakhand</option>
-                    <option value="West Bengal">West Bengal</option>
-                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-                    <option value="Chandigarh">Chandigarh</option>
-                    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
-                    <option value="Lakshadweep">Lakshadweep</option>
-                    <option value="Delhi">Delhi</option>
-                    <option value="Puducherry">Puducherry</option>
-                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-                    <option value="Ladakh">Ladakh</option>
-                    <option value="Punjab">Punjab</option>
-                    <option value="Himachal Pradesh">Himachal Pradesh</option>
-                    <option value="Andhra Pradesh">Andhra Pradesh</option>
-                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block mb-2 text-sm font-medium text-slate-600">Estimated Delivery</label>
-                  <p id="deliveryEstimate" class="text-sm text-slate-600">Select a state/UT to see delivery estimate.</p>
-                </div>
+        <!-- User Details Form -->
+        <div class="card p-6 mb-6">
+          <h2 class="text-2xl font-semibold mb-4 text-slate-800">Contact Information</h2>
+          <form id="userDetailsForm" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block mb-2 text-sm font-medium text-slate-600">Full Name</label>
+                <input type="text" id="name" class="w-full input-field px-4 py-3 rounded-lg" placeholder="John Doe"
+                  required>
               </div>
-            </form>
-          </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium text-slate-600">Phone Number</label>
+                <input type="text" id="phone" class="w-full input-field px-4 py-3 rounded-lg"
+                  placeholder="+91 1234567890" required>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block mb-2 text-sm font-medium text-slate-600">Street Address</label>
+                <input type="text" id="addressLine1" class="w-full input-field px-4 py-3 rounded-lg"
+                  placeholder="123 Main Street" required>
+              </div>
+              <div class="sm:col-span-2">
+                <input type="text" id="addressLine2" class="w-full input-field px-4 py-3 rounded-lg"
+                  placeholder="Apt, suite, or building (optional)">
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium text-slate-600">ZIP Code</label>
+                <input type="text" id="pinCode" class="w-full input-field px-4 py-3 rounded-lg" placeholder="123456"
+                  required>
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium text-slate-600">State/UT</label>
+                <select id="state" class="w-full input-field px-4 py-3 rounded-lg" required>
+                  <option value="">Select State/UT</option>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option value="Kerala">Kerala</option>
+                  <option value="Assam">Assam</option>
+                  <option value="Nagaland">Nagaland</option>
+                  <option value="Bihar">Bihar</option>
+                  <option value="Chhattisgarh">Chhattisgarh</option>
+                  <option value="Goa">Goa</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Haryana">Haryana</option>
+                  <option value="Jharkhand">Jharkhand</option>
+                  <option value="Karnataka">Karnataka</option>
+                  <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="Manipur">Manipur</option>
+                  <option value="Meghalaya">Meghalaya</option>
+                  <option value="Mizoram">Mizoram</option>
+                  <option value="Odisha">Odisha</option>
+                  <option value="Rajasthan">Rajasthan</option>
+                  <option value="Sikkim">Sikkim</option>
+                  <option value="Tamil Nadu">Tamil Nadu</option>
+                  <option value="Telangana">Telangana</option>
+                  <option value="Tripura">Tripura</option>
+                  <option value="Uttarakhand">Uttarakhand</option>
+                  <option value="West Bengal">West Bengal</option>
+                  <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                  <option value="Chandigarh">Chandigarh</option>
+                  <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu
+                  </option>
+                  <option value="Lakshadweep">Lakshadweep</option>
+                  <option value="Delhi">Delhi</option>
+                  <option value="Puducherry">Puducherry</option>
+                  <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                  <option value="Ladakh">Ladakh</option>
+                  <option value="Punjab">Punjab</option>
+                  <option value="Himachal Pradesh">Himachal Pradesh</option>
+
+                </select>
+              </div>
+              <div>
+                <label class="block mb-2 text-sm font-medium text-slate-600">Estimated Delivery</label>
+                <p id="deliveryEstimate" class="text-sm text-slate-600">Select a state/UT to see delivery estimate.</p>
+              </div>
+            </div>
+          </form>
         </div>
+      </div>
 
       <!-- Right Side: Payment Details -->
       <div>
@@ -221,9 +234,51 @@
         </div>
 
         <!-- Razorpay Payment Button -->
-        <button id="rzp-button" class="w-full razorpay-button">
+        <!-- Razorpay Payment Button -->
+        <button id="rzp-button" class="w-full razorpay-button" disabled>
           <i class="fas fa-lock mr-2"></i>Complete Secure Payment
         </button>
+        <br><br>
+
+        <!-- Cash on Delivery Button -->
+        <button id="codButton"
+          class="w-full bg-gray-600 text-white py-4 rounded-xl font-semibold hover:bg-gray-700 transition-all duration-300 shadow-lg shadow-gray-100 hover:shadow-gray-200"
+          disabled>
+          <i class="fas fa-money-bill-wave mr-2"></i>Cash on Delivery
+        </button>
+        <br><br>
+
+        <!-- Place Order Button (Visible only when COD is selected) -->
+        <button id="placeOrderButton"
+          class="w-full bg-green-600 text-white py-4 rounded-xl font-semibold hover:bg-green-700 transition-all duration-300 shadow-lg shadow-green-100 hover:shadow-green-200 hidden mt-4">
+          <i class="fas fa-check-circle mr-2"></i>Place Order
+        </button>
+
+        <!-- Terms and Conditions Checkbox -->
+        <div class="mt-4 flex items-center">
+          <input type="checkbox" id="termsCheckbox" class="mr-2 w-6 h-6">
+          <label for="termsCheckbox" class="text-l text-slate-600">
+            I agree to the <a href="./policies.html" class="text-blue-600 underline hover:text-blue-800">Terms and
+              Conditions</a>
+          </label>
+        </div>
+
+        <!-- JavaScript to enable/disable buttons based on checkbox -->
+        <script>
+          const termsCheckbox = document.getElementById('termsCheckbox');
+
+
+          termsCheckbox.addEventListener('change', () => {
+            if (termsCheckbox.checked) {
+              rzpButton.disabled = false;
+              codButton.disabled = false;
+            } else {
+              rzpButton.disabled = true;
+              codButton.disabled = true;
+            }
+          });
+        </script>
+
       </div>
     </div>
   </div>
@@ -234,12 +289,12 @@
         <div class="md:col-span-2">
           <h3 class="text-2xl font-bold text-amber-900 mb-4">Autumn T-Shirts</h3>
           <p class="text-amber-700 text-sm leading-relaxed">
-            Embrace seasonal style with our curated collection of autumn-inspired apparel. 
+            Embrace seasonal style with our curated collection of autumn-inspired apparel.
             Where comfort meets trend in every stitch.
           </p>
-          
+
         </div>
-  
+
         <!-- Quick Links -->
         <div>
           <h4 class="text-amber-900 font-semibold mb-4 text-lg">Explore</h4>
@@ -248,56 +303,62 @@
             <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Women's Styles</a></li>
           </ul>
         </div>
-  
+
         <!-- Support -->
         <div>
           <h4 class="text-amber-900 font-semibold mb-4 text-lg">Support</h4>
           <ul class="space-y-2">
-            
-            <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Terms and conditions</a></li>
-            <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Contact Support</a></li>
+
+            <li><a href="./policies.html" class="text-amber-700 hover:text-amber-900 transition-colors">Terms and conditions</a></li>
+            <li><a href="./contact-support.html" class="text-amber-700 hover:text-amber-900 transition-colors">Contact Support</a></li>
+            <li><a href="./report-bug.html" class="text-amber-700 hover:text-amber-900 transition-colors">Report a Bug</a></li>
           </ul>
         </div>
-  
+
         <!-- Contact -->
         <div>
           <h4 class="text-amber-900 font-semibold mb-4 text-lg">Connect</h4>
           <div class="space-y-2">
             <div class="flex items-center gap-2">
               <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
               <span class="text-amber-700">hello@autumn.com</span>
             </div>
             <div class="flex items-center gap-2">
               <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
               <span class="text-amber-700">+91 456 7890</span>
             </div>
           </div>
-          
+
           <!-- Social Icons -->
           <div class="mt-4 flex gap-3">
             <a href="#" class="p-2 bg-amber-100 rounded-full hover:bg-amber-200 transition-colors">
               <svg class="w-5 h-5 text-amber-700" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                <path
+                  d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
               </svg>
             </a>
             <a href="#" class="p-2 bg-amber-100 rounded-full hover:bg-amber-200 transition-colors">
               <svg class="w-5 h-5 text-amber-700" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z"/>
+                <path
+                  d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z" />
               </svg>
             </a>
             <a href="#" class="p-2 bg-amber-100 rounded-full hover:bg-amber-200 transition-colors">
               <svg class="w-5 h-5 text-amber-700" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
               </svg>
             </a>
           </div>
         </div>
       </div>
-  
+
       <!-- Copyright -->
       <div class="mt-12 pt-8 border-t border-amber-200 text-center">
         <p class="text-sm text-amber-600">
@@ -350,9 +411,7 @@
       "Jammu and Kashmir": "7-10 Days",
       "Ladakh": "7-10 Days",
       "Punjab": "4 Days",
-      "Himachal Pradesh": "1-2 Days",
-      "Andhra Pradesh": "6-8 Days",
-      "Arunachal Pradesh": "7-10 Days"
+      "Himachal Pradesh": "1-2 Days"
     };
 
     stateSelect.addEventListener('change', () => {
@@ -373,58 +432,82 @@
     const rzpButton = document.getElementById('rzp-button');
     let cartItems = [];
     let totalAmount = 0;
-  
+
     // Fetch cart items with token
     fetch('/cart', {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     })
-    .then(res => res.json())
-    .then(items => {
-      cartItems = items;
-      totalAmount = 0;
-      cartItemsList.innerHTML = '';
-  
-      if (items.length === 0) {
-        cartItemsList.innerHTML = '<p class="text-center text-gray-300">Your cart is empty.</p>';
-      } else {
-        items.forEach(item => {
-          const itemElement = document.createElement('div');
-          itemElement.className = 'cart-item flex justify-between items-center p-4 border-b border-white/10';
-          itemElement.innerHTML = `
-            <div>
-              <h3 class="font-semibold">${item.products.name}</h3>
-              <p class="text-sm text-gray-300">₹${item.products.price} x ${item.quantity}</p>
-            </div>
-            <div class="font-bold">₹${(item.products.price * item.quantity).toFixed(2)}</div>
-          `;
-          cartItemsList.appendChild(itemElement);
-  
-          totalAmount += item.products.price * item.quantity;
-        });
-  
-        cartTotal.textContent = totalAmount.toFixed(2);
-      }
-    })
-    .catch(error => {
-      console.error('Error fetching cart items:', error);
-      alert('Failed to fetch cart items. Please try again.');
-    });
-  
+      .then(res => res.json())
+      .then(async items => {
+        cartItems = items;
+        totalAmount = 0;
+        cartItemsList.innerHTML = '';
+
+        if (items.length === 0) {
+          cartItemsList.innerHTML = '<p class="text-center text-gray-300">Your cart is empty.</p>';
+        } else {
+          // Fetch product prices from the server
+          const productIds = items.map(item => item.product_id);
+          const pricesResponse = await fetch('/products/prices', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({ productIds })
+          });
+
+          if (!pricesResponse.ok) throw new Error('Failed to fetch product prices');
+
+          const productPrices = await pricesResponse.json();
+
+          // Create a map of product prices for quick lookup
+          const productPriceMap = productPrices.reduce((map, product) => {
+            map[product.id] = product.price;
+            return map;
+          }, {});
+
+          // Render cart items with correct prices
+          items.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'cart-item flex justify-between items-center p-4 border-b border-white/10';
+            itemElement.innerHTML = `
+          <div>
+            <h3 class="font-semibold">${item.products.name}</h3>
+            <p class="text-sm text-gray-300">₹${productPriceMap[item.product_id].toFixed(2)} x ${item.quantity}</p>
+          </div>
+          <div class="font-bold">₹${(productPriceMap[item.product_id] * item.quantity).toFixed(2)}</div>
+        `;
+            cartItemsList.appendChild(itemElement);
+
+            totalAmount += productPriceMap[item.product_id] * item.quantity;
+          });
+
+          // Update the total amount with delivery charges
+          updateTotalAmount();
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching cart items:', error);
+        alert('Failed to fetch cart items. Please try again.');
+      });
+
+
     // Fetch Razorpay key
     let razorpayKey;
-  
+
     fetch('/get-razorpay-key', {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
     })
-    .then(res => res.json())
-    .then(data => {
-      razorpayKey = data.key;
-    })
-    .catch(error => {
-      console.error('Error fetching Razorpay key:', error);
-      alert('Failed to fetch Razorpay key. Please try again.');
-    });
-  
+      .then(res => res.json())
+      .then(data => {
+        razorpayKey = data.key;
+      })
+      .catch(error => {
+        console.error('Error fetching Razorpay key:', error);
+        alert('Failed to fetch Razorpay key. Please try again.');
+      });
+
     // Razorpay Integration
     rzpButton.addEventListener('click', async () => {
       const name = document.getElementById('name').value;
@@ -433,24 +516,33 @@
       const addressLine2 = document.getElementById('addressLine2').value;
       const pinCode = document.getElementById('pinCode').value;
       const state = document.getElementById('state').value;
-  
+
       if (!name || !phone || !addressLine1 || !pinCode || !state) {
         alert('Please fill in your details before paying.');
         return;
       }
-  
-      // Create a Razorpay order
+
+      // Set payment method to 'Online'
+      const paymentMethod = 'Online';
+
+      // Calculate final amount including delivery charges
+      let finalAmount = totalAmount;
+      if (totalAmount < 500) {
+        finalAmount += 50; // Add ₹50 for orders below ₹500
+      }
+
+      // Create a Razorpay order with the final amount
       const response = await fetch('/create-razorpay-order', {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}` 
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-        body: JSON.stringify({ amount: totalAmount }),
+        body: JSON.stringify({ amount: finalAmount, paymentMethod }), // Pass paymentMethod
       });
-  
+
       const { order } = await response.json();
-  
+
       // Razorpay checkout options
       const options = {
         key: razorpayKey, // Use the fetched Razorpay key
@@ -462,27 +554,28 @@
         handler: async function (response) {
           // Handle successful payment
           const paymentId = response.razorpay_payment_id;
-  
+
           // Place the order
           const orderResponse = await fetch('/checkout', {
             method: 'POST',
-            headers: { 
+            headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${localStorage.getItem('token')}` 
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
             body: JSON.stringify({
-              name: name,
-              phone: phone,
+              name,
+              phone,
               address: `${addressLine1}, ${addressLine2}`,
-              pinCode: pinCode,
-              state: state,
-              cartItems: cartItems,
-              paymentId: paymentId,
+              pinCode,
+              state,
+              cartItems,
+              paymentMethod, // Pass the correct payment method
+              deliveryCharges: totalAmount < 500 ? 50 : 0, // Include delivery charges for orders below ₹500
             }),
           });
-  
+
           const orderData = await orderResponse.json();
-  
+
           if (orderData.success) {
             window.location.href = '/orderconfirm.html';
           } else {
@@ -498,10 +591,110 @@
           color: '#667eea',
         },
       };
-  
+
       const rzp = new Razorpay(options);
       rzp.open();
     });
   </script>
+  <script>
+    const codButton = document.getElementById('codButton');
+    const placeOrderButton = document.getElementById('placeOrderButton');
+    const deliveryChargesMessage = document.getElementById('deliveryChargesMessage');
+    const codDeliveryChargesMessage = document.getElementById('codDeliveryChargesMessage');
+    let isCODSelected = false;
+
+    // Function to update the total amount with delivery charges
+    function updateTotalAmount() {
+      let deliveryCharges = 0;
+
+      // Add ₹50 delivery charges for orders below ₹500
+      if (totalAmount < 500) {
+        deliveryCharges += 50;
+        deliveryChargesMessage.classList.remove('hidden');
+      } else {
+        deliveryChargesMessage.classList.add('hidden');
+      }
+
+      // Add additional ₹50 for COD
+      if (isCODSelected) {
+        deliveryCharges += 50;
+        codDeliveryChargesMessage.classList.remove('hidden');
+      } else {
+        codDeliveryChargesMessage.classList.add('hidden');
+      }
+
+      // Update the total amount
+      const finalTotal = totalAmount + deliveryCharges;
+      cartTotal.textContent = finalTotal.toFixed(2);
+    }
+
+    // Cash on Delivery Button Click
+    codButton.addEventListener('click', () => {
+      isCODSelected = true;
+      updateTotalAmount();
+      placeOrderButton.classList.remove('hidden');
+      rzpButton.classList.add('hidden');
+      codButton.classList.add('hidden');
+    });
+
+    // Place Order Button Click (for COD)
+    placeOrderButton.addEventListener('click', async () => {
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const addressLine1 = document.getElementById('addressLine1').value;
+      const addressLine2 = document.getElementById('addressLine2').value;
+      const pinCode = document.getElementById('pinCode').value;
+      const state = document.getElementById('state').value;
+
+      if (!name || !phone || !addressLine1 || !pinCode || !state) {
+        alert('Please fill in your details before placing the order.');
+        return;
+      }
+
+      // Set payment method to 'COD'
+      const paymentMethod = 'COD';
+
+      // Prepare the cart items for the request
+      const formattedCartItems = cartItems.map((item) => ({
+        product_id: item.product_id || item.products.id, // Ensure product_id is correct
+        quantity: item.quantity,
+        size: item.size,
+        color: item.color,
+        products: {
+          price: item.products.price,
+        },
+      }));
+
+      // Place the order with COD
+      const orderResponse = await fetch('/checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify({
+          name,
+          phone,
+          address: `${addressLine1}, ${addressLine2}`,
+          pinCode,
+          state,
+          cartItems: formattedCartItems,
+          paymentMethod, // Pass the correct payment method
+          deliveryCharges: 50, // Always ₹50 for COD
+        }),
+      });
+
+      const orderData = await orderResponse.json();
+
+      if (orderData.success) {
+        window.location.href = '/orderconfirm.html';
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    });
+
+
+  </script>
 </body>
+
 </html>

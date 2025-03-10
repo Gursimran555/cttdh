@@ -89,7 +89,7 @@
       background-color: #f0fff4;
     }
 
-    
+
 
     .related-product-card {
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -127,11 +127,11 @@
     }
 
     #productImage {
-      max-width: 300px;
+      max-width: 90%;
       /* Adjust this value to your desired width */
-      height: 100%;
+      height: 90%;
       /* Maintain aspect ratio */
-      border-radius: 8px;
+      border-radius: 0px;
       /* Optional: Adjust border radius */
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       /* Optional: Adjust shadow */
@@ -157,6 +157,8 @@
       background-color: rgb(155, 154, 154);
     }
   </style>
+
+
 
 </head>
 
@@ -229,6 +231,9 @@
               <button class="size-btn" data-size="L">L</button>
               <button class="size-btn" data-size="XL">XL</button>
             </div>
+            <!-- Add this line to display the model's size -->
+            <p id="modelSize" class="text-sm text-gray-600 mt-2">Model is wearing size: <span
+                id="modelSizeValue"></span></p>
           </div>
 
           <!-- Size Guide Button and Chart -->
@@ -490,6 +495,12 @@
         </div>
       </div>
     </div>
+    <div class="mt-4 flex items-center justify-center">
+      <a href="./policies.html" class="text-blue-600 underline hover:text-blue-800">
+        Terms and Conditions applied
+      </a>
+    </div>
+    
   </div>
 
 
@@ -570,8 +581,10 @@
           <h4 class="text-amber-900 font-semibold mb-4 text-lg">Support</h4>
           <ul class="space-y-2">
 
-            <li><a href="./policies.html" class="text-amber-700 hover:text-amber-900 transition-colors">Terms and conditions</a></li>
-            <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Contact Support</a></li>
+            <li><a href="./policies.html" class="text-amber-700 hover:text-amber-900 transition-colors">Terms and
+                conditions</a></li>
+            <li><a href="./contact-support.html" class="text-amber-700 hover:text-amber-900 transition-colors">Contact Support</a></li>
+            <li><a href="./report-bug.html" class="text-amber-700 hover:text-amber-900 transition-colors">Report a Bug</a></li>
           </ul>
         </div>
 
@@ -654,6 +667,7 @@
     const productId = params.get('id');
 
     // Fetch and display product details
+    // Fetch and display product details
     fetch(`/product/${productId}`)
       .then(res => res.json())
       .then(product => {
@@ -675,16 +689,51 @@
         if (product.key_features) {
           const features = product.key_features.split(';');
           keyFeaturesList.innerHTML = features.map(feature => `
-            <li>
-              <i class="fas fa-check-circle"></i> ${feature}
-            </li>
-          `).join('');
+        <li>
+          <i class="fas fa-check-circle"></i> ${feature}
+        </li>
+      `).join('');
         }
+
+        // Display model's size
+        const modelSizeElement = document.getElementById('modelSizeValue');
+        if (product.model_size) {
+          modelSizeElement.textContent = product.model_size; // Set the model size value
+        } else {
+          document.getElementById('modelSize').style.display = 'none'; // Hide if no model size is available
+        }
+
+        // Stock Status Logic
+        const stockStatus = document.createElement('div');
+        stockStatus.className = 'absolute top-2 left-30 bg-white p-2 rounded-full shadow-md';
+        if (product.quantity > 0) {
+          stockStatus.textContent = 'In Stock';
+          stockStatus.classList.add('text-green-500');
+          if (product.quantity < 3) {
+            stockStatus.textContent = 'Only Few Items Left';
+            stockStatus.classList.add('text-yellow-500');
+          }
+        } else {
+          stockStatus.textContent = 'Out of Stock';
+          stockStatus.classList.add('text-red-500');
+          addToCartButton.disabled = true;
+          addToCartButton.textContent = 'Item Out of Stock';
+          addToCartButton.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+          addToCartButton.classList.add('bg-gray-400', 'cursor-not-allowed');
+        }
+
+        // Append stock status to the image container
+        const imageContainer = document.querySelector('.flex.justify-center.relative');
+        imageContainer.appendChild(stockStatus);
 
         // Handle add to cart button click
         addToCartButton.onclick = () => {
           if (!selectedSize) {
             alert('Please select a size before adding to cart.');
+            return;
+          }
+          if (product.quantity < 1) {
+            alert('Item is out of stock.');
             return;
           }
           addToCart(productId);

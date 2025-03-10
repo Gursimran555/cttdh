@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  
+
 
   <!-- Load Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -21,14 +21,14 @@
 
 <style>
   /* cormorant-garamond-latin-400-normal */
-@font-face {
-  font-family: 'Cormorant Garamond';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 400;
-  src: url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff) format('woff');
-  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
+  @font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.woff) format('woff');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
 </style>
 <style>
   /* Minified CSS */
@@ -53,7 +53,8 @@
   }
 
   .product-card {
-    transition: transform .3s ease, box-shadow .3s ease
+    transition: transform .3s ease, box-shadow .3s ease;
+
   }
 
   .product-card:hover {
@@ -61,7 +62,35 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, .15)
   }
 
-  
+  .relative {
+    height: 100 px;
+    /* Adjusted height for related product images */
+    object-fit: cover;
+    cursor: pointer;
+    /* Make image clickable */
+  }
+
+  .product-card img {
+    height: 400px;
+    /* Set a fixed height */
+    width: 100%;
+    /* Ensure the width fills the container */
+    object-fit: cover;
+    /* Maintain aspect ratio while filling the container */
+    border-radius: 8px;
+    /* Optional: Add border-radius if needed */
+  }
+
+  .product-card {
+    height: 700px;
+    /* Set a fixed height for the card */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Adjust content spacing */
+  }
+
+
 
   .view-details-btn {
     background-color: #FFA500;
@@ -151,7 +180,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+    background: rgba(0, 0, 0, 0.4);
+    /* Dark overlay */
     z-index: 1;
   }
 
@@ -202,30 +232,24 @@
   </header>
 
   <!-- Hero Section -->
-    <!-- Hero Section -->
-<section class="hero-section">
-  <div class="hero-overlay">
-  <div class="container mx-auto px-6 flex flex-col lg:flex-row items-center justify-between h-full">
-    <!-- Text Content -->
-    <div class="text-center lg:text-left lg:w-1/2 z-10">
-      <h1 class="text-5xl lg:text-6xl font-bold text-white mb-6">Autumn Collection 2025</h1>
-      <p class="text-xl text-gray-200 mb-8">Discover the latest trends in men's and women's fashion. Shop now</p>
-      <a href="#products" class="bg-white text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 text-lg">
-        Shop Now
-      </a>
-    </div>
-
-    <!-- Image Grid -->
-    <div class="grid grid-cols-2 gap-6 lg:w-1/2 z-10 mt-8 lg:mt-0">
-      <div class="relative overflow-hidden rounded-lg shadow-lg">
-        <img src="./images/4.jpg" alt="Local Image 1" class="w-full h-full object-cover transform hover:scale-105 transition duration-300">
-      </div>
-      <div class="relative overflow-hidden rounded-lg shadow-lg">
-        <img src="./images/3.jpg" alt="Local Image 2" class="w-full h-full object-cover transform hover:scale-105 transition duration-300">
+  <!-- Hero Section -->
+  <section class="hero-section bg-cover bg-center"
+    style="background-image: url('./images/fashionable-clothing-modern-boutique-store-generated-by-ai.jpg');">
+    <div class="hero-overlay bg-black bg-opacity-50 h-full">
+      <div class="container mx-auto px-6 flex items-end justify-center h-full min-h-[500px]">
+        <!-- Adjusted for center bottom -->
+        <!-- Text Content -->
+        <div class="text-center z-10 mb-16"> <!-- Added margin-bottom for spacing -->
+          <h1 class="text-5xl lg:text-6xl font-bold text-white mb-6">Autumn</h1>
+          <p class="text-xl text-gray-200 mb-8">Discover the latest trends in men's and women's fashion. Shop now</p>
+          <a href="#products"
+            class="bg-white text-gray-900 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition duration-300 text-lg">
+            Shop Now
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
   <!-- Sorting Options -->
   <div class="container mx-auto px-6 py-12">
     <div class="filter-section">
@@ -295,8 +319,12 @@
           <h4 class="text-amber-900 font-semibold mb-4 text-lg">Support</h4>
           <ul class="space-y-2">
 
-            <li><a href="./policies.html" class="text-amber-700 hover:text-amber-900 transition-colors">Terms and conditions</a></li>
-            <li><a href="#" class="text-amber-700 hover:text-amber-900 transition-colors">Contact Support</a></li>
+            <li><a href="./policies.html" class="text-amber-700 hover:text-amber-900 transition-colors">Terms and
+                conditions</a></li>
+            <li><a href="./contact-support.html" class="text-amber-700 hover:text-amber-900 transition-colors">Contact
+                Support</a></li>
+            <li><a href="./report-bug.html" class="text-amber-700 hover:text-amber-900 transition-colors">Report a Bug
+              </a></li>
           </ul>
         </div>
 
@@ -372,6 +400,7 @@
     });
 
     // Function to fetch and display products
+
     function fetchProducts(filters = {}) {
       const queryParams = new URLSearchParams(filters).toString();
       fetch(`/products?${queryParams}`)
@@ -383,134 +412,296 @@
             const originalPrice = Math.round(product.price * 1.25); // Add 25% to show discount
             const discountPercentage = 20; // 20% discount
 
+            // Determine stock status
+            let stockStatus = '';
+            let stockClass = '';
+            if (product.quantity > 0) {
+              stockStatus = 'In Stock';
+              stockClass = 'text-green-500';
+              if (product.quantity < 3) {
+                stockStatus = 'Only Few Items Left';
+                stockClass = 'text-yellow-500';
+              }
+            } else {
+              stockStatus = 'Out of Stock';
+              stockClass = 'text-red-500';
+            }
+
             const productCard = document.createElement('div');
-            productCard.className = 'bg-white rounded-lg shadow-lg p-6 product-card hover:shadow-xl transition duration-300';
+            productCard.className = 'bg-white rounded-lg shadow-lg p-4 sm:p-6 w-full sm:w-auto product-card hover:shadow-xl transition duration-300';
             productCard.innerHTML = `
-          <div class="relative">
-            <img src="${product.image_url}" alt="${product.name}" class="w-full h-98 object-cover rounded-lg mb-4 cursor-pointer" onclick="window.location.href='/product.html?id=${product.id}'" crossorigin="anonymous">
-            <!-- Heart Button -->
-            <button class="absolute top-2 right-2 bg-white p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors" data-product-id="${product.id}">
-              <i class="fas fa-heart text-gray-500 hover:text-red-500"></i>
-            </button>
-          </div>
-          <h3 class="text-xl font-semibold text-gray-800">${product.name}</h3>
-          <p class="text-gray-600 mt-2">${product.description.substring(0, 50)}...</p>
-          <div class="mt-4">
-            <span class="price-cut">₹${originalPrice}</span>
-            <span class="text-green-500 font-bold">₹${product.price}</span>
-            <span class="discount-badge">${discountPercentage}% off</span>
-          </div>
-          <div class="mt-6">
-            <button onclick="window.location.href='/product.html?id=${product.id}'" class="view-details-btn">
-              <i class="fas fa-eye"></i> View Details
-            </button>
-          </div>
-        `;
+  <div class="relative">
+    <img src="${product.image_url}" alt="${product.name}" class="w-full h-48 sm:h-64 object-cover rounded-lg mb-2 cursor-pointer" onclick="window.location.href='/product.html?id=${product.id}'" crossorigin="anonymous">
+    <!-- Stock Status -->
+    <div class="absolute top-2 left-2 bg-white p-1 sm:p-2 rounded-full shadow-md text-xs sm:text-sm ${stockClass}">
+      ${stockStatus}
+    </div>
+    <!-- Heart Button -->
+    <button class="absolute top-2 right-2 bg-white p-1 sm:p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors" data-product-id="${product.id}">
+      <i class="fas fa-heart text-gray-500 hover:text-red-500 text-sm sm:text-base"></i>
+    </button>
+  </div>
+  <h3 class="text-lg sm:text-xl font-semibold text-gray-800 mt-1 sm:mt-2">${product.name}</h3>
+  <p class="text-gray-600 text-sm sm:text-base mt-1">${product.description.substring(0, 50)}...</p>
+  <div class="mt-1 sm:mt-2">
+    <span class="price-cut text-sm sm:text-base">₹${originalPrice}</span>
+    <span class="text-green-500 font-bold text-sm sm:text-base">₹${product.price}</span>
+    <span class="discount-badge text-xs sm:text-sm">${discountPercentage}% off</span>
+  </div>
+  <div class="mt-2 sm:mt-4">
+    <button onclick="window.location.href='/product.html?id=${product.id}'" class="view-details-btn text-sm sm:text-base">
+      <i class="fas fa-eye"></i> View Details
+    </button>
+  </div>
+`;
+
+            // Append the product card to the grid
             grid.appendChild(productCard);
           });
-        });
+          });
+        }
+
+
+            // Apply filters when the button is clicked
+            applyFiltersButton.addEventListener('click', () => {
+              const gender = document.getElementById('gender').value;
+              const size = document.getElementById('size').value;
+              const color = document.getElementById('color').value;
+              const price = document.getElementById('price').value;
+
+              const filters = {};
+              if (gender) filters.gender = gender;
+              if (size) filters.size = size;
+              if (color) filters.color = color;
+              if (price) filters.sort = `price:${price}`;
+
+              fetchProducts(filters);
+            });
+
+            // Initial load of products
+            fetchProducts();
+  </script>
+
+
+  <script defer>
+            // script for wishlist 
+            document.addEventListener('click', async (event) => {
+              // Check if the clicked element is a heart button or its child (the icon)
+              const heartButton = event.target.closest('[data-product-id]');
+              if (heartButton) {
+                const productId = heartButton.dataset.productId;
+                const token = localStorage.getItem('token');
+
+                // If the user is not logged in, redirect them to the login page
+                if (!token) {
+                  alert('Please login to add products to your wishlist.');
+                  window.location.href = '/auth.html';
+                  return;
+                }
+
+                try {
+                  // Send a POST request to add the product to the wishlist
+                  const response = await fetch('/wishlist', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ productId }),
+                  });
+
+                  const result = await response.json();
+
+                  if (result.success) {
+                    alert('Product added to wishlist!');
+                    // Optionally, change the heart icon color to red to indicate it's in the wishlist
+                    heartButton.querySelector('i').classList.remove('text-gray-500');
+                    heartButton.querySelector('i').classList.add('text-red-500');
+                  } else {
+                    alert(result.message);
+                  }
+                } catch (error) {
+                  console.error('Error adding to wishlist:', error);
+                  alert('Failed to add product to wishlist.');
+                }
+              }
+            });
+  </script>
+
+
+
+  <script defer>
+            document.addEventListener("DOMContentLoaded", function () {
+              var lazyloadImages = document.querySelectorAll(".lazyload");
+              var lazyloadThrottleTimeout;
+
+              function lazyload() {
+                if (lazyloadThrottleTimeout) {
+                  clearTimeout(lazyloadThrottleTimeout);
+                }
+
+                lazyloadThrottleTimeout = setTimeout(function () {
+                  var scrollTop = window.pageYOffset;
+                  lazyloadImages.forEach(function (img) {
+                    if (img.offsetTop < (window.innerHeight + scrollTop)) {
+                      img.src = img.dataset.src;
+                      img.classList.remove('lazyload');
+                    }
+                  });
+                  if (lazyloadImages.length == 0) {
+                    document.removeEventListener("scroll", lazyload);
+                    window.removeEventListener("resize", lazyload);
+                    window.removeEventListener("orientationChange", lazyload);
+                  }
+                }, 20);
+              }
+
+              document.addEventListener("scroll", lazyload);
+              window.addEventListener("resize", lazyload);
+              window.addEventListener("orientationChange", lazyload);
+            });
+  </script>
+
+
+
+  <style>
+    /* Mobile-specific styles */
+    @media (max-width: 640px) {
+
+      /* Adjust product grid for mobile */
+      #products {
+        grid-template-columns: repeat(2, 1fr) !important;
+        /* 2 products per row */
+        gap: 8px !important;
+        /* Reduce gap between products */
+      }
+
+      /* Reduce font sizes for mobile */
+      h1 {
+        font-size: 2rem;
+        /* Smaller heading */
+      }
+
+      p {
+        font-size: 0.875rem !important;
+        /* Smaller paragraph text */
+      }
+
+      /* Adjust hero section height for mobile */
+      .hero-section {
+        height: 95vh !important;
+
+
+
+        /* Reduce height */
+      }
+
+      /* Stack filters vertically on mobile */
+      .filter-section .flex {
+        flex-direction: column !important;
+      }
+
+      .filter-section select,
+      .filter-section button {
+        width: 100% !important;
+        /* Full width for filters */
+        margin-bottom: 8px;
+        /* Add spacing between stacked filters */
+      }
+
+      /* Adjust image sizes for mobile */
+      .product-card img {
+        height: 200px !important;
+        /* Smaller images */
+      }
+
+      /* Footer adjustments for mobile */
+      .footer .grid {
+        grid-template-columns: repeat(1, 1fr) !important;
+        /* Stack footer columns */
+      }
     }
+  </style>
 
-
-    // Apply filters when the button is clicked
-    applyFiltersButton.addEventListener('click', () => {
-      const gender = document.getElementById('gender').value;
-      const size = document.getElementById('size').value;
-      const color = document.getElementById('color').value;
-      const price = document.getElementById('price').value;
-
-      const filters = {};
-      if (gender) filters.gender = gender;
-      if (size) filters.size = size;
-      if (color) filters.color = color;
-      if (price) filters.sort = `price:${price}`;
-
-      fetchProducts(filters);
-    });
-
-    // Initial load of products
-    fetchProducts();
-  </script>
-
-
-  <script defer>
-    // script for wishlist 
-    document.addEventListener('click', async (event) => {
-      // Check if the clicked element is a heart button or its child (the icon)
-      const heartButton = event.target.closest('[data-product-id]');
-      if (heartButton) {
-        const productId = heartButton.dataset.productId;
-        const token = localStorage.getItem('token');
-
-        // If the user is not logged in, redirect them to the login page
-        if (!token) {
-          alert('Please login to add products to your wishlist.');
-          window.location.href = '/auth.html';
-          return;
-        }
-
-        try {
-          // Send a POST request to add the product to the wishlist
-          const response = await fetch('/wishlist', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({ productId }),
-          });
-
-          const result = await response.json();
-
-          if (result.success) {
-            alert('Product added to wishlist!');
-            // Optionally, change the heart icon color to red to indicate it's in the wishlist
-            heartButton.querySelector('i').classList.remove('text-gray-500');
-            heartButton.querySelector('i').classList.add('text-red-500');
-          } else {
-            alert(result.message);
-          }
-        } catch (error) {
-          console.error('Error adding to wishlist:', error);
-          alert('Failed to add product to wishlist.');
-        }
+  <style>
+    @media (max-width: 640px) {
+      html {
+        font-size: 14px;
+        /* Base font size for mobile */
       }
-    });
-  </script>
 
+      h1 {
+        font-size: 1.25rem !important;
+        /* Adjust heading size */
+      }
 
-  
-  <script defer>
-    document.addEventListener("DOMContentLoaded", function() {
-      var lazyloadImages = document.querySelectorAll(".lazyload");
-      var lazyloadThrottleTimeout;
-  
-      function lazyload () {
-        if(lazyloadThrottleTimeout) {
-          clearTimeout(lazyloadThrottleTimeout);
-        }
-  
-        lazyloadThrottleTimeout = setTimeout(function() {
-          var scrollTop = window.pageYOffset;
-          lazyloadImages.forEach(function(img) {
-            if(img.offsetTop < (window.innerHeight + scrollTop)) {
-              img.src = img.dataset.src;
-              img.classList.remove('lazyload');
-            }
-          });
-          if(lazyloadImages.length == 0) {
-            document.removeEventListener("scroll", lazyload);
-            window.removeEventListener("resize", lazyload);
-            window.removeEventListener("orientationChange", lazyload);
-          }
-        }, 20);
+      h2 {
+        font-size: 1.25rem !important;
+      }
+
+      p {
+        font-size: 0.875rem !important;
+        /* Adjust paragraph size */
+      }
+
+      button {
+        font-size: 0.875rem !important;
+        /* Adjust button text size */
+      }
+    }
+  </style>
+  <style>
+    /* Mobile-specific styles */
+    @media (max-width: 640px) {
+      /* Adjust product grid for mobile */
+      #products {
+        grid-template-columns: repeat(2, 1fr) !important; /* 2 products per row */
+        gap: 12px !important; /* Reduce gap between products */
       }
   
-      document.addEventListener("scroll", lazyload);
-      window.addEventListener("resize", lazyload);
-      window.addEventListener("orientationChange", lazyload);
-    });
-  </script>
+      /* Explicitly set the width and padding of the product card container */
+      .product-card {
+        width: 100% !important; /* Make the card take full width of its grid column */
+        height: fit-content;
+        max-width: 300px !important; /* Set a smaller max-width for the card */
+        padding: 0.5rem !important; /* Reduce padding */
+        margin: 0 auto; /* Center the card within its grid column */
+      }
+  
+      /* Adjust image size to fit the smaller container */
+      .product-card img {
+        height: 260px !important; /* Reduce image height */
+        width: 100% !important; /* Ensure image fills the container width */
+      }
+  
+      /* Remove default margins and reduce gaps between elements */
+      .product-card h3 {
+        font-size: 1.2rem !important; /* Smaller font size for product name */
+        margin: 0 !important; /* Remove default margin */
+      }
+  
+      .product-card p {
+        font-size: 0.75rem !important; /* Smaller font size for description */
+        margin: 0 !important; /* Remove default margin */
+      }
+  
+      .product-card .view-details-btn {
+        font-size: 0.75rem !important; /* Smaller font size for button text */
+        padding: 0.25rem 0.5rem !important; /* Reduce button padding */
+        margin: 0.25rem 0 0 0 !important; /* Reduce gap before button */
+      }
+  
+      .product-card .price-cut,
+      .product-card .text-green-500,
+      .product-card .discount-badge {
+        font-size: 0.75rem !important; /* Smaller font size for price and discount */
+        margin: 0 !important; /* Remove default margin */
+      }
+    }
+  </style>
+  
+
+
 </body>
 
 </html>

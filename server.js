@@ -48,6 +48,7 @@ function authenticateToken(req, res, next) {
 // Routes
 
 // Fetch all products
+// Fetch all products
 app.get("/products", async (req, res) => {
   const { gender, size, color, sort } = req.query;
   let query = supabase.from("products").select("*");
@@ -74,6 +75,7 @@ app.get("/products", async (req, res) => {
 });
 
 // Fetch a single product by ID
+// Fetch a single product by ID
 app.get("/product/:id", async (req, res) => {
   const productId = req.params.id;
 
@@ -88,13 +90,21 @@ app.get("/product/:id", async (req, res) => {
   }
 
   // Combine all image URLs into an array, filtering out null values
-  const images = [product.image_url, product.image_url2, product.image_url3].filter(url => url);
+  const images = [
+    product.image_url,
+    product.image_url2,
+    product.image_url3,
+    product.image_url4,
+    product.image_url5,
+    product.image_url6
+  ].filter(url => url);
 
   // Add the images array to the product object
   product.images = images;
 
   res.json(product);
 });
+
 
 // Fetch reviews for a product
 app.get("/product/:id/reviews", async (req, res) => {
@@ -284,27 +294,71 @@ app.post("/signup", async (req, res) => {
 });
 
 
+// Track failed login attempts
+const failedLoginAttempts = new Map(); // Stores email -> { count, lastAttempt }
+
+// Middleware to check if the user is blocked due to too many failed attempts
+function checkLoginAttempts(req, res, next) {
+  const { email } = req.body;
+
+  if (failedLoginAttempts.has(email)) {
+    const { count, lastAttempt } = failedLoginAttempts.get(email);
+    const now = Date.now();
+    const cooldownPeriod = 10 * 60 * 1000; // 10 minutes in milliseconds
+
+    // Check if the user is still in the cooldown period
+    if (now - lastAttempt < cooldownPeriod && count >= 3) {
+      const remainingTime = Math.ceil((cooldownPeriod - (now - lastAttempt)) / 1000 / 60); // Remaining time in minutes
+      return res.status(429).json({
+        success: false,
+        message: `Too many failed login attempts. Please try again in ${remainingTime} minutes.`,
+      });
+    }
+  }
+
+  next();
+}
+
 // User login
-app.post("/login", async (req, res) => {
+app.post('/login', checkLoginAttempts, async (req, res) => {
   const { email, password } = req.body;
 
   const { data: user, error } = await supabase
-    .from("users")
-    .select("*")
-    .eq("email", email)
+    .from('users')
+    .select('*')
+    .eq('email', email)
     .single();
 
   if (error || !user || !(await bcrypt.compare(password, user.password))) {
-    return res.status(401).json({ success: false, message: "Invalid credentials" });
+    // Track failed login attempts
+    if (!failedLoginAttempts.has(email)) {
+      failedLoginAttempts.set(email, { count: 1, lastAttempt: Date.now() });
+    } else {
+      const { count, lastAttempt } = failedLoginAttempts.get(email);
+      const now = Date.now();
+      const cooldownPeriod = 10 * 60 * 1000; // 10 minutes in milliseconds
+
+      // Reset the count if the last attempt was more than 10 minutes ago
+      if (now - lastAttempt > cooldownPeriod) {
+        failedLoginAttempts.set(email, { count: 1, lastAttempt: now });
+      } else {
+        failedLoginAttempts.set(email, { count: count + 1, lastAttempt: now });
+      }
+    }
+
+    return res.status(401).json({ success: false, message: 'Invalid credentials' });
   }
 
-  const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: "1h" });
+  // Reset failed login attempts on successful login
+  failedLoginAttempts.delete(email);
+
+  const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: '1h' });
   res.json({ success: true, token });
 });
 
-// Checkout and create an order
+// checkout route 
 app.post("/checkout", authenticateToken, async (req, res) => {
-  const { name, phone, address, pinCode, state, cartItems } = req.body;
+  const { name, phone, address, pinCode, state, cartItems, paymentMethod, deliveryCharges } = req.body;
 
   if (!name || !phone || !address || !pinCode || !state || !cartItems || cartItems.length === 0) {
     return res.status(400).json({ success: false, message: "Incomplete order details" });
@@ -320,16 +374,44 @@ app.post("/checkout", authenticateToken, async (req, res) => {
     return res.status(500).json({ success: false, message: "Failed to fetch user" });
   }
 
+  // Fetch product prices from the database
+  const productIds = cartItems.map(item => item.product_id);
+  const { data: products, error: productsError } = await supabase
+    .from("products")
+    .select("id, price")
+    .in("id", productIds);
+
+  if (productsError) {
+    return res.status(500).json({ success: false, message: "Failed to fetch product prices" });
+  }
+
+  // Create a map of product prices for quick lookup
+  const productPriceMap = products.reduce((map, product) => {
+    map[product.id] = product.price;
+    return map;
+  }, {});
+
+  // Calculate total amount using prices from the database
+  const totalAmount = cartItems.reduce((sum, item) => {
+    const price = productPriceMap[item.product_id] || 0;
+    return sum + (price * item.quantity);
+  }, 0);
+
+  // Ensure delivery charges are ₹50 for COD, regardless of the total amount
+  const finalDeliveryCharges = (paymentMethod === 'COD') ? 50 : (totalAmount < 500 ? 50 : 0);
+
   // Create order
   const { data: order, error: orderError } = await supabase
     .from("orders")
-    .insert([{ 
-      user_id: user.id, 
-      name, 
-      phone, 
-      address, 
-      pin_code: pinCode, 
-      state 
+    .insert([{
+      user_id: user.id,
+      name,
+      phone,
+      address,
+      pin_code: pinCode,
+      state,
+      payment_method: paymentMethod, // Use the paymentMethod from the request
+      delivery_charges: finalDeliveryCharges,
     }])
     .select()
     .single();
@@ -345,7 +427,7 @@ app.post("/checkout", authenticateToken, async (req, res) => {
     quantity: item.quantity,
     size: item.size,
     color: item.color,
-    price: item.products.price, // Use the price from the product details
+    price: productPriceMap[item.product_id], // Use the price from the database
   }));
 
   const { error: itemsError } = await supabase.from("order_items").insert(orderItems);
@@ -363,6 +445,26 @@ app.post("/checkout", authenticateToken, async (req, res) => {
 
   res.json({ success: true, message: "Order placed successfully", orderId: order.id });
 });
+
+// Add this endpoint to fetch product prices
+app.post('/products/prices', async (req, res) => {
+  const { productIds } = req.body;
+
+  // Fetch product prices from the database
+  const { data: products, error } = await supabase
+    .from('products')
+    .select('id, price')
+    .in('id', productIds);
+
+  if (error) {
+    return res.status(500).json({ success: false, message: 'Failed to fetch product prices' });
+  }
+
+  // Return the product prices
+  res.json(products);
+});
+
+
 // Fetch order history for the logged-in user
 app.get("/orders", authenticateToken, async (req, res) => {
   const { data: user, error: userError } = await supabase
@@ -376,8 +478,8 @@ app.get("/orders", authenticateToken, async (req, res) => {
   }
 
   const { data: orders, error: ordersError } = await supabase
-    .from("orders")
-    .select("*, order_items(*, products(*))")
+    .from("merged_orders")
+    .select("*")
     .eq("user_id", user.id);
 
   if (ordersError) {
@@ -514,6 +616,53 @@ app.delete("/wishlist/:id", authenticateToken, async (req, res) => {
   }
 
   res.json({ success: true, message: "Item removed from wishlist" });
+});
+
+// Add this route to handle contact support form submissions
+app.post('/contact-support', async (req, res) => {
+  const { name, email, phone, subject, message } = req.body;
+
+  if (!name || !email || !phone || !subject || !message) {
+    return res.status(400).json({ success: false, message: "All fields are required" });
+  }
+
+  const { data, error } = await supabase
+    .from('contact_submissions')
+    .insert([{ name, email, phone, subject, message }])
+    .select();
+
+  if (error) {
+    return res.status(500).json({ success: false, message: "Failed to submit contact form" });
+  }
+
+  res.json({ success: true, message: "Contact form submitted successfully", data });
+});
+
+// Add this route to handle bug report form submissions
+app.post('/report-bug', async (req, res) => {
+  const { name, email, bugDescription, stepsToReproduce, expectedBehavior, actualBehavior } = req.body;
+
+  if (!name || !email || !bugDescription || !stepsToReproduce || !expectedBehavior || !actualBehavior) {
+    return res.status(400).json({ success: false, message: "All fields are required" });
+  }
+
+  const { data, error } = await supabase
+    .from('bug_reports')
+    .insert([{ 
+      name, 
+      email, 
+      bug_description: bugDescription, 
+      steps_to_reproduce: stepsToReproduce, 
+      expected_behavior: expectedBehavior, 
+      actual_behavior: actualBehavior 
+    }])
+    .select();
+
+  if (error) {
+    return res.status(500).json({ success: false, message: "Failed to submit bug report" });
+  }
+
+  res.json({ success: true, message: "Bug report submitted successfully", data });
 });
 
 // Start the server

@@ -1,0 +1,13 @@
+Fonts used in this design:
+
+Font: Cormorant
+Author: Christian Thalmann
+Url: https://fonts.google.com/specimen/Cormorant
+
+Font: Karla
+Author: Jonny Pinhorn
+Url: https://fonts.google.com/specimen/Karla
+
+Font: Dancing Script
+Author: Impallari Type
+Url: https://fonts.google.com/specimen/Dancing+Script

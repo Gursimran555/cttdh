@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report a Bug</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  
+
+  <!-- Bug Report Form -->
+  <section class="container mx-auto px-6 py-24">
+    <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">Report a Bug</h2>
+      <form id="bugReportForm">
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-medium text-gray-700">Your Name</label>
+          <input type="text" id="name" name="name" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+        </div>
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-medium text-gray-700">Your Email</label>
+          <input type="email" id="email" name="email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+        </div>
+        <div class="mb-4">
+          <label for="bugDescription" class="block text-sm font-medium text-gray-700">Bug Description</label>
+          <textarea id="bugDescription" name="bugDescription" rows="4" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Describe the bug in detail..."></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="stepsToReproduce" class="block text-sm font-medium text-gray-700">Steps to Reproduce</label>
+          <textarea id="stepsToReproduce" name="stepsToReproduce" rows="4" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="Provide steps to reproduce the bug..."></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="expectedBehavior" class="block text-sm font-medium text-gray-700">Expected Behavior</label>
+          <textarea id="expectedBehavior" name="expectedBehavior" rows="4" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="What did you expect to happen?"></textarea>
+        </div>
+        <div class="mb-4">
+          <label for="actualBehavior" class="block text-sm font-medium text-gray-700">Actual Behavior</label>
+          <textarea id="actualBehavior" name="actualBehavior" rows="4" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500" placeholder="What actually happened?"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-300">Submit Bug Report</button>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById('bugReportForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        bugDescription: document.getElementById('bugDescription').value,
+        stepsToReproduce: document.getElementById('stepsToReproduce').value,
+        expectedBehavior: document.getElementById('expectedBehavior').value,
+        actualBehavior: document.getElementById('actualBehavior').value,
+      };
+
+      try {
+        const response = await fetch('/report-bug', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          alert('Your bug report has been submitted successfully!');
+          document.getElementById('bugReportForm').reset();
+        } else {
+          alert('Failed to submit bug report. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+      }
+    });
+  </script>
+</body>
+</html>
