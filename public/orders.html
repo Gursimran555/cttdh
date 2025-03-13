@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+  <!-- Navigation -->
+  <header class="bg-white shadow-lg fixed w-full z-10">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="/">
+        <img src="./images/logo.png" alt="Autumn Logo" class="h-10">
+      </a>
+
+      <div class="flex space-x-4">
+        <a id="loginButton" href="/auth.html" class="text-gray-700 hover:text-indigo-600 transition duration-300">
+          <i class="fas fa-user text-2xl"></i>
+        </a>
+        <a id="logoutButton" href="#" class="text-gray-700 hover:text-red-600 transition duration-300 hidden">
+          <i class="fas fa-sign-out-alt text-2xl"></i>
+        </a>
+        <a href="/cart.html" class="text-gray-700 hover:text-green-600 transition duration-300 relative">
+          <i class="fas fa-shopping-cart text-2xl"></i>
+          <span id="cartCount"
+            class="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5 transform translate-x-1/2 -translate-y-1/2">0</span>
+        </a>
+        <a href="/wishlist.html" class="text-gray-700 hover:text-green-600 transition duration-300">
+          <i class="fas fa-heart text-2xl"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+  <br><br>
+
+  <!-- Orders Section -->
+  <div class="container mx-auto px-6 py-12">
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">My Orders</h1>
+    <div id="orders" class="grid grid-cols-1 gap-6">
+      <!-- Orders will be dynamically loaded here -->
+    </div>
+  </div>
+
+  <script defer>
+    const ordersContainer = document.getElementById('orders');
+    const logoutButton = document.getElementById('logoutButton');
+    const loginButton = document.getElementById('loginButton');
+
+    // Check if user is logged in
+    const token = localStorage.getItem('token');
+    if (token) {
+      loginButton.style.display = 'none';
+      logoutButton.style.display = 'block';
+    } else {
+      // Redirect to login page if not logged in
+      window.location.href = '/auth.html';
+    }
+
+    logoutButton.addEventListener('click', () => {
+      localStorage.removeItem('token');
+      window.location.reload();
+    });
+
+    // Fetch and display orders
+    // Fetch and display orders
+    async function fetchOrders() {
+      try {
+        console.log("Fetching orders...");
+
+        const response = await fetch('/orders', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        if (!response.ok) {
+          console.error("Failed to fetch orders. Status:", response.status);
+          throw new Error('Failed to fetch orders');
+        }
+
+        const orders = await response.json();
+        console.log("Orders received from backend:", orders);
+
+        if (orders.length === 0) {
+          console.log("No orders found.");
+          ordersContainer.innerHTML = '<p class="text-gray-600">You have no orders yet.</p>';
+          return;
+        }
+
+        console.log("Rendering orders...");
+        ordersContainer.innerHTML = orders.map(order => `
+      <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-semibold text-gray-800">Order #${order.order_id}</h2>
+          <span class="text-sm text-gray-500">${new Date(order.created_at).toLocaleDateString()}</span>
+        </div>
+        <div class="space-y-4">
+          <div class="flex items-center gap-4">
+            <div>
+              <h3 class="text-lg font-medium text-gray-800">${order.product_name}</h3> <!-- Display product name -->
+              <p class="text-sm text-gray-600">Quantity: ${order.quantity}</p>
+              <p class="text-sm text-gray-600">Size: ${order.size}</p>
+              <p class="text-sm text-gray-600">Price: ₹${order.price}</p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 pt-4 border-t border-gray-200">
+          <p class="text-lg font-semibold text-gray-800">Total: ₹${order.total_amount}</p>
+          <p class="text-sm text-gray-600">Payment Method: ${order.payment_method}</p>
+        </div>
+      </div>
+    `).join('');
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+        ordersContainer.innerHTML = '<p class="text-red-500">Failed to load orders. Please try again later.</p>';
+      }
+    }
+
+
+
+    // Initial load
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchOrders();
+    });
+  </script>
+</body>
+
+</html>

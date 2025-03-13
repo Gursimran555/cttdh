@@ -50,25 +50,23 @@ function authenticateToken(req, res, next) {
 // Fetch all products
 // Fetch all products
 app.get("/products", async (req, res) => {
-  const { gender, size, color, sort } = req.query;
+  const { gender, color, sort } = req.query;
   let query = supabase.from("products").select("*");
 
-  // Apply filters if they exist
-  if (gender) query = query.eq("gender", gender);
-  if (size) query = query.eq("size", size);
-  if (color) query = query.eq("color", color);
+  // Apply filters
+  if (gender) query = query.ilike("gender", gender);
+  if (color) query = query.ilike("color", color);
 
-  // Apply sorting if it exists
+  // Apply sorting
   if (sort) {
     const [field, order] = sort.split(":");
     query = query.order(field, { ascending: order === "asc" });
   }
 
-  // Execute the query
   const { data: products, error } = await query;
 
   if (error) {
-    return res.status(500).json({ success: false, message: "Failed to fetch products" });
+    return res.status(500).json({ message: "Failed to fetch products" });
   }
 
   res.json(products);
@@ -374,31 +372,34 @@ app.post("/checkout", authenticateToken, async (req, res) => {
     return res.status(500).json({ success: false, message: "Failed to fetch user" });
   }
 
-  // Fetch product prices from the database
+  // Fetch product details (name and price) from the database
   const productIds = cartItems.map(item => item.product_id);
   const { data: products, error: productsError } = await supabase
     .from("products")
-    .select("id, price")
+    .select("id, name, price")
     .in("id", productIds);
 
   if (productsError) {
-    return res.status(500).json({ success: false, message: "Failed to fetch product prices" });
+    return res.status(500).json({ success: false, message: "Failed to fetch product details" });
   }
 
-  // Create a map of product prices for quick lookup
-  const productPriceMap = products.reduce((map, product) => {
-    map[product.id] = product.price;
+  // Create a map of product details for quick lookup
+  const productDetailsMap = products.reduce((map, product) => {
+    map[product.id] = { name: product.name, price: product.price };
     return map;
   }, {});
 
   // Calculate total amount using prices from the database
   const totalAmount = cartItems.reduce((sum, item) => {
-    const price = productPriceMap[item.product_id] || 0;
+    const price = productDetailsMap[item.product_id]?.price || 0;
     return sum + (price * item.quantity);
   }, 0);
 
-  // Ensure delivery charges are ₹50 for COD, regardless of the total amount
-  const finalDeliveryCharges = (paymentMethod === 'COD') ? 50 : (totalAmount < 500 ? 50 : 0);
+  // Calculate delivery charges (only once)
+  let finalDeliveryCharges = 0;
+  if (totalAmount < 500 || paymentMethod === 'COD') {
+    finalDeliveryCharges = 50;
+  }
 
   // Create order
   const { data: order, error: orderError } = await supabase
@@ -410,8 +411,9 @@ app.post("/checkout", authenticateToken, async (req, res) => {
       address,
       pin_code: pinCode,
       state,
-      payment_method: paymentMethod, // Use the paymentMethod from the request
+      payment_method: paymentMethod,
       delivery_charges: finalDeliveryCharges,
+      total_amount: totalAmount + finalDeliveryCharges, // Ensure total_amount is stored
     }])
     .select()
     .single();
@@ -427,13 +429,34 @@ app.post("/checkout", authenticateToken, async (req, res) => {
     quantity: item.quantity,
     size: item.size,
     color: item.color,
-    price: productPriceMap[item.product_id], // Use the price from the database
+    price: productDetailsMap[item.product_id]?.price, // Use the price from the database
   }));
 
   const { error: itemsError } = await supabase.from("order_items").insert(orderItems);
 
   if (itemsError) {
     return res.status(500).json({ success: false, message: "Failed to add order items" });
+  }
+
+  // Insert into merged_orders
+  const mergedOrderItems = cartItems.map((item) => ({
+    order_id: order.id,
+    user_id: user.id,
+    product_id: item.product_id,
+    product_name: productDetailsMap[item.product_id]?.name, // Include product name
+    quantity: item.quantity,
+    size: item.size,
+    color: item.color,
+    price: productDetailsMap[item.product_id]?.price,
+    total_amount: totalAmount + finalDeliveryCharges, // Ensure total_amount is stored
+    payment_method: paymentMethod,
+    created_at: new Date().toISOString(),
+  }));
+
+  const { error: mergedError } = await supabase.from("merged_orders").insert(mergedOrderItems);
+
+  if (mergedError) {
+    return res.status(500).json({ success: false, message: "Failed to add to merged orders" });
   }
 
   // Clear the cart
