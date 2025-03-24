@@ -8,8 +8,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 text-gray-900">
-  
-
   <!-- Contact Support Form -->
   <section class="container mx-auto px-6 py-24">
     <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-lg">
@@ -35,14 +33,67 @@
           <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
           <textarea id="message" name="message" rows="4" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
         </div>
+        <!-- Dynamic Math CAPTCHA -->
+        <div class="mb-4">
+          <label for="captcha" class="block text-sm font-medium text-gray-700" id="captchaQuestion"></label>
+          <input type="text" id="captcha" name="captcha" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+        </div>
         <button type="submit" class="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-300">Submit</button>
       </form>
     </div>
   </section>
 
   <script>
+    // Function to generate a random math question
+    function generateMathQuestion() {
+      const operators = ['+', '-', '*', '/'];
+      const num1 = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
+      const num2 = Math.floor(Math.random() * 10) + 1; // Random number between 1 and 10
+      const operator = operators[Math.floor(Math.random() * operators.length)]; // Random operator
+
+      let question;
+      let answer;
+
+      switch (operator) {
+        case '+':
+          question = `${num1} + ${num2}`;
+          answer = num1 + num2;
+          break;
+        case '-':
+          question = `${num1} - ${num2}`;
+          answer = num1 - num2;
+          break;
+        case '*':
+          question = `${num1} * ${num2}`;
+          answer = num1 * num2;
+          break;
+        case '/':
+          // Ensure division results in a whole number
+          question = `${num1 * num2} / ${num2}`;
+          answer = num1;
+          break;
+      }
+
+      return { question, answer };
+    }
+
+    // Generate and display the math question
+    const { question, answer } = generateMathQuestion();
+    document.getElementById('captchaQuestion').textContent = `What is ${question}?`;
+
+    // Store the correct answer in a hidden field or variable
+    let correctAnswer = answer;
+
+    // Form submission handler
     document.getElementById('contactForm').addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      // Validate the CAPTCHA
+      const captchaInput = document.getElementById('captcha').value;
+      if (parseInt(captchaInput) !== correctAnswer) {
+        alert('Incorrect CAPTCHA answer. Please try again.');
+        return;
+      }
 
       const formData = {
         name: document.getElementById('name').value,
@@ -64,6 +115,10 @@
         if (response.ok) {
           alert('Your message has been sent successfully!');
           document.getElementById('contactForm').reset();
+          // Generate a new CAPTCHA question after successful submission
+          const { question: newQuestion, answer: newAnswer } = generateMathQuestion();
+          document.getElementById('captchaQuestion').textContent = `What is ${newQuestion}?`;
+          correctAnswer = newAnswer;
         } else {
           alert('Failed to send message. Please try again.');
         }

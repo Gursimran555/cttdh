@@ -201,7 +201,7 @@
     })
     .catch(err => {
         console.error('Error fetching wishlist items:', err);
-      wishlistItemsContainer.innerHTML = '<p class="text-center text-red-500">Failed to load wishlist items.</p>';
+      wishlistItemsContainer.innerHTML = '<p class="text-center text-red-500">Failed to load wishlist items. Please login again </p>';
     });
 
       function removeFromWishlist(productId) {

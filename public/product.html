@@ -248,34 +248,54 @@
 
           <!-- Add the event listener for the wishlist button -->
           <script>
-            const addToWishlistButton = document.getElementById('addToWishlistButton');
+            // Add to Wishlist Button
+const addToWishlistButton = document.getElementById('addToWishlistButton');
 
-            addToWishlistButton.onclick = () => {
-              const token = localStorage.getItem('token');
-              if (!token) {
-                alert('Please login to add items to your wishlist.');
-                window.location.href = '/auth.html';
-                return;
-              }
+if (addToWishlistButton) {
+    addToWishlistButton.addEventListener('click', async () => {
+        const productId = new URLSearchParams(window.location.search).get('id');
+        if (!productId) {
+            alert('Product ID not found.');
+            return;
+        }
 
-              fetch('/wishlist', {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert('Please log in to add items to your wishlist.');
+            window.location.href = '/auth.html';
+            return;
+        }
+
+        try {
+            const response = await fetch('/wishlist', {
                 method: 'POST',
                 headers: {
-                  'Content-Type': 'application/json',
-                  Authorization: `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({ productId }),
-              })
-                .then(res => res.json())
-                .then(data => {
-                  if (data.success) {
-                    alert('Item added to wishlist!');
-                  } else {
-                    alert('Failed to add item to wishlist.');
-                  }
-                })
-                .catch(err => console.error('Error adding item to wishlist:', err));
-            };
+            });
+
+            // Check if the token is expired (401 Unauthorized)
+            if (response.status === 401) {
+                localStorage.removeItem('token'); // Clear the expired token
+                alert('Your session has expired. Please log in again.');
+                window.location.href = '/auth.html';
+                return;
+            }
+
+            const data = await response.json();
+            if (data.success) {
+                alert('Item added to wishlist!');
+            } else {
+                alert('Failed to add item to wishlist.');
+            }
+        } catch (error) {
+            console.error('Error adding item to wishlist:', error);
+            alert('Please login again , your session is expired ');
+        }
+    });
+}
           </script>
         </div>
 
@@ -912,21 +932,22 @@
     });
 
     document.getElementById("addToCartButton").addEventListener("click", async () => {
-        if (!selectedSize) {
-            alert("Please select a size before adding to cart.");
-            return;
-        }
+    if (!selectedSize) {
+        alert("Please select a size before adding to cart.");
+        return;
+    }
 
-        const productId = window.location.search.split("=")[1];
-        const quantity = document.getElementById("quantity").value;
+    const productId = window.location.search.split("=")[1];
+    const quantity = document.getElementById("quantity").value;
 
-        const token = localStorage.getItem("token");
-        if (!token) {
-            alert("Please log in to add items to the cart.");
-            window.location.href = '/auth.html';
-            return;
-        }
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("Please log in to add items to the cart.");
+        window.location.href = '/auth.html';
+        return;
+    }
 
+    try {
         const response = await fetch("/cart", {
             method: "POST",
             headers: {
@@ -940,6 +961,14 @@
             })
         });
 
+        // Check if the token is expired (401 Unauthorized)
+        if (response.status === 401) {
+            localStorage.removeItem('token'); // Clear the expired token
+            alert('Your session has expired. Please log in again.');
+            window.location.href = '/auth.html';
+            return;
+        }
+
         const data = await response.json();
         if (data.success) {
             alert("Item added to cart successfully!");
@@ -947,7 +976,12 @@
         } else {
             alert("Failed to add item to cart.");
         }
-    });
+    } catch (error) {
+        console.error('Error adding item to cart:', error);
+        alert('PLease login again your session is expired .');
+    }
+});
+
 });
 
   </script>

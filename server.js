@@ -254,40 +254,88 @@ app.delete("/cart/:id", authenticateToken, async (req, res) => {
 });
 
 
-// User signup
-app.post("/signup", async (req, res) => {
-  const { fullName, mobile, email, password } = req.body;
+const otpGenerator = require('otp-generator');
 
-  if (!fullName || !mobile || !email || !password) {
-    return res.status(400).json({ success: false, message: "All fields are required" });
+// Store OTPs temporarily (in production, use a database or cache like Redis)
+const otpStore = new Map();
+
+// Endpoint to send OTP
+app.post('/send-otp', async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ success: false, message: 'Email is required.' });
   }
 
+  // Generate a 6-digit OTP
+  const otp = otpGenerator.generate(6, { digits: true, alphabets: false, upperCase: false, specialChars: false });
+
+  // Store OTP in memory
+  otpStore.set(email, otp);
+
+  // Send OTP via email
+  const mailOptions = {
+    from: `"Autumn India" <${process.env.GODADDY_EMAIL}>`,
+    to: email,
+    subject: 'OTP for Signup Verification',
+    html: `<p>Your OTP for signup is: <strong>${otp}</strong></p>`,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending OTP email:', error);
+      return res.status(500).json({ success: false, message: 'Failed to send OTP.' });
+    } else {
+      console.log('OTP email sent:', info.response);
+      return res.json({ success: true, message: 'OTP sent to your email.' });
+    }
+  });
+});
+
+// Modify the /signup route to verify OTP
+app.post('/signup', async (req, res) => {
+  const { fullName, mobile, email, password, otp } = req.body;
+
+  if (!fullName || !mobile || !email || !password || !otp) {
+    return res.status(400).json({ success: false, message: 'All fields are required.' });
+  }
+
+  // Verify OTP
+  const storedOtp = otpStore.get(email);
+  if (!storedOtp || storedOtp !== otp) {
+    return res.status(400).json({ success: false, message: 'Invalid OTP.' });
+  }
+
+  // Clear OTP after verification
+  otpStore.delete(email);
+
+  // Proceed with signup logic
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const { data: existingUser, error: userError } = await supabase
-    .from("users")
-    .select("*")
-    .eq("email", email);
+    .from('users')
+    .select('*')
+    .eq('email', email);
 
   if (userError) {
-    return res.status(500).json({ success: false, message: "Database error" });
+    return res.status(500).json({ success: false, message: 'Database error' });
   }
 
   if (existingUser.length > 0) {
-    return res.status(400).json({ success: false, message: "Email already exists" });
+    return res.status(400).json({ success: false, message: 'Email already exists' });
   }
 
   const { data: newUser, error: insertError } = await supabase
-    .from("users")
+    .from('users')
     .insert([{ full_name: fullName, mobile, email, password: hashedPassword }])
     .select()
     .single();
 
   if (insertError) {
-    return res.status(500).json({ success: false, message: "Failed to create user" });
+    return res.status(500).json({ success: false, message: 'Failed to create user' });
   }
 
-  const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: "1h" });
+  const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: '1h' });
   res.json({ success: true, token });
 });
 
@@ -364,7 +412,7 @@ app.post("/checkout", authenticateToken, async (req, res) => {
 
   const { data: user, error: userError } = await supabase
     .from("users")
-    .select("id")
+    .select("id, email")
     .eq("email", req.user.email)
     .single();
 
@@ -465,6 +513,38 @@ app.post("/checkout", authenticateToken, async (req, res) => {
   if (cartError) {
     return res.status(500).json({ success: false, message: "Failed to clear cart" });
   }
+
+  // Send confirmation email using GoDaddy
+  const mailOptions = {
+    from: `"Autumn india " <${process.env.GODADDY_EMAIL}>`, // Sender name and email
+    to: user.email, // User's email address
+    subject: 'Order Confirmation', // Email subject
+    html: `
+      <h1>Order Confirmed!</h1>
+      <p>Thank you for your purchase! Your order has been successfully placed.</p>
+      <h2>Order Details:</h2>
+      <ul>
+        ${cartItems.map(item => `
+          <li>
+            ${productDetailsMap[item.product_id]?.name} - 
+            Quantity: ${item.quantity} - 
+            Price: ₹${productDetailsMap[item.product_id]?.price}
+          </li>
+        `).join('')}
+      </ul>
+      <p>Total Amount: ₹${totalAmount + finalDeliveryCharges}</p>
+      <p>Payment Method: ${paymentMethod}</p>
+      <p>Delivery Address: ${address}, ${pinCode}, ${state}</p>
+    `,
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Error sending email:', error);
+    } else {
+      console.log('Email sent:', info.response);
+    }
+  });
 
   res.json({ success: true, message: "Order placed successfully", orderId: order.id });
 });
@@ -688,12 +768,27 @@ app.post('/report-bug', async (req, res) => {
   res.json({ success: true, message: "Bug report submitted successfully", data });
 });
 
+
+// email 
+
+const nodemailer = require('nodemailer');
+
+// Configure Nodemailer for GoDaddy
+const transporter = nodemailer.createTransport({
+  host: 'smtpout.secureserver.net', // GoDaddy's SMTP server
+  port: 465, // Use 465 for SSL or 587 for TLS
+  secure: true, // true for 465, false for other ports
+  auth: {
+    user: process.env.GODADDY_EMAIL, // Your GoDaddy email address
+    pass: process.env.GODADDY_EMAIL_PASSWORD, // Your GoDaddy email password
+  },
+});
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
-// testing 
 
 
-// test 
 
+// designed and developed by TTDH Web Solutions 
